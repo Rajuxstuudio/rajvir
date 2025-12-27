@@ -1,5 +1,5 @@
-import { Quote } from "lucide-react";
-import { Button } from "./ui/button";
+import { Quote, Star } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const testimonials = [
   {
@@ -7,28 +7,39 @@ const testimonials = [
     author: "John D.",
     role: "Customer",
     date: "April 2025",
-    stat: "8X",
-    statLabel: "Increase in conversion rate",
+    rating: 4.9,
   },
   {
     quote: "Raj Vir's mentoring was invaluable. His clear breakdown of complex UX concepts and consistent availability made learning effortless.",
     author: "Rupa Mothukuri",
     role: "UX Designer at Solveda",
     date: "Feb 2025",
-    stat: "2X",
-    statLabel: "Increase in lead generation",
+    rating: 4.9,
   },
   {
     quote: "Rajvir is a UX treasure trove. His rapid insight into UX flows was critical to our product goals and user satisfaction.",
     author: "Syed Asim",
     role: "SaaS & Robotics",
     date: "Feb 2022",
-    stat: null,
-    statLabel: null,
+    rating: 4.9,
   },
 ];
 
 export const TestimonialsSection = () => {
+  const [activeIndex, setActiveIndex] = useState(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleClick = (index: number) => {
+    setActiveIndex(index);
+  };
+
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background glow */}
@@ -43,134 +54,128 @@ export const TestimonialsSection = () => {
           <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-2">
             Results that speaks volume
           </h2>
-          <h3 className="text-2xl md:text-3xl font-display text-muted-foreground mb-4">
-            Read success stories
-          </h3>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Find out how our happy clients are raving about us.
           </p>
         </div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid md:grid-cols-12 gap-6 max-w-6xl mx-auto">
-          {/* Large Left Card */}
-          <div
-            className="md:col-span-5 row-span-2 p-8 rounded-3xl glass border border-border/30 animate-fade-in-up flex flex-col justify-between"
-            style={{ animationDelay: "0ms" }}
-          >
-            {/* Stat */}
-            <div>
-              <div className="text-6xl md:text-7xl font-display font-bold text-foreground mb-2">
-                {testimonials[0].stat}
-              </div>
-              <div className="text-lg text-muted-foreground mb-8">
-                {testimonials[0].statLabel}
-              </div>
-
-              {/* Quote */}
-              <Quote className="w-8 h-8 text-accent/60 mb-4 rotate-180" />
-              <p className="text-foreground/90 leading-relaxed text-lg">
-                "{testimonials[0].quote}"
-              </p>
-            </div>
-
-            {/* Author */}
-            <div className="flex items-center gap-4 mt-8">
-              <div className="w-12 h-12 rounded-full bg-gradient-accent flex items-center justify-center text-accent-foreground font-display font-bold">
-                {testimonials[0].author.charAt(0)}
-              </div>
-              <div>
-                <div className="font-display font-semibold text-foreground">
-                  {testimonials[0].author}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {testimonials[0].role}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Top Right Card with Stat */}
-          <div
-            className="md:col-span-7 p-6 rounded-3xl glass border border-border/30 animate-fade-in-up"
-            style={{ animationDelay: "100ms" }}
-          >
-            <div className="flex items-start gap-4 mb-4">
-              <div className="text-4xl font-display font-bold text-foreground">
-                {testimonials[1].stat}
-              </div>
-              <div className="text-muted-foreground">
-                {testimonials[1].statLabel}
-              </div>
-            </div>
-
-            <Quote className="w-6 h-6 text-accent/60 mb-3 rotate-180" />
-            <p className="text-foreground/80 leading-relaxed mb-6">
-              "{testimonials[1].quote}"
-            </p>
-
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-accent flex items-center justify-center text-accent-foreground font-display font-bold text-sm">
-                {testimonials[1].author.charAt(0)}
-              </div>
-              <div>
-                <div className="font-display font-semibold text-foreground text-sm">
-                  {testimonials[1].author}
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  {testimonials[1].role}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Right - Two cards side by side */}
-          <div className="md:col-span-7 grid md:grid-cols-2 gap-6">
-            {/* Third Testimonial */}
-            <div
-              className="p-6 rounded-3xl glass border border-border/30 animate-fade-in-up"
-              style={{ animationDelay: "200ms" }}
+        {/* Testimonials Layout */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 max-w-5xl mx-auto">
+          {/* Left side - Rotating avatars with connecting line */}
+          <div className="relative flex flex-col items-center">
+            {/* Curved connecting line */}
+            <svg
+              className="absolute left-1/2 -translate-x-1/2 h-full w-20 pointer-events-none"
+              viewBox="0 0 80 300"
+              fill="none"
+              preserveAspectRatio="none"
             >
-              <Quote className="w-6 h-6 text-accent/60 mb-3 rotate-180" />
-              <p className="text-foreground/80 leading-relaxed mb-6 text-sm">
-                "{testimonials[2].quote}"
-              </p>
+              <path
+                d="M40 0 Q60 75 40 150 Q20 225 40 300"
+                stroke="hsl(var(--border))"
+                strokeWidth="2"
+                strokeDasharray="4 4"
+                fill="none"
+              />
+            </svg>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-accent flex items-center justify-center text-accent-foreground font-display font-bold text-sm">
-                  {testimonials[2].author.charAt(0)}
-                </div>
-                <div>
-                  <div className="font-display font-semibold text-foreground text-sm">
-                    {testimonials[2].author}
+            {testimonials.map((testimonial, index) => {
+              const isActive = index === activeIndex;
+              const distance = Math.abs(index - activeIndex);
+
+              return (
+                <div
+                  key={index}
+                  className="relative z-10 flex items-center gap-4 cursor-pointer transition-all duration-500"
+                  style={{
+                    marginTop: index === 0 ? 0 : "2rem",
+                    transform: isActive ? "scale(1)" : `scale(${1 - distance * 0.15})`,
+                    opacity: isActive ? 1 : 0.5,
+                  }}
+                  onClick={() => handleClick(index)}
+                >
+                  {/* Avatar */}
+                  <div
+                    className={`relative rounded-full transition-all duration-500 ${
+                      isActive
+                        ? "w-16 h-16 ring-2 ring-accent ring-offset-2 ring-offset-background"
+                        : "w-12 h-12"
+                    }`}
+                  >
+                    <div
+                      className={`w-full h-full rounded-full bg-gradient-accent flex items-center justify-center text-accent-foreground font-display font-bold ${
+                        isActive ? "text-xl" : "text-sm"
+                      }`}
+                    >
+                      {testimonial.author.charAt(0)}
+                    </div>
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    {testimonials[2].role}
+
+                  {/* Name and rating - only show for active */}
+                  <div
+                    className={`transition-all duration-500 ${
+                      isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 absolute"
+                    }`}
+                  >
+                    <div className="font-display font-semibold text-foreground whitespace-nowrap">
+                      {testimonial.author}
+                    </div>
+                    <div className="flex items-center gap-1 text-sm">
+                      <Star className="w-4 h-4 fill-accent text-accent" />
+                      <span className="text-accent font-medium">{testimonial.rating}</span>
+                      <span className="text-muted-foreground">on {testimonial.date}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
+          </div>
 
-            {/* View All Card - Dark themed */}
-            <div
-              className="p-6 rounded-3xl bg-card/90 border border-border/50 animate-fade-in-up flex flex-col justify-between backdrop-blur-xl"
-              style={{ animationDelay: "300ms" }}
-            >
-              <div>
-                <Quote className="w-6 h-6 text-accent mb-3 rotate-180" />
-                <p className="text-foreground/70 leading-relaxed text-sm mb-4">
-                  "More success stories from clients who trusted us with their vision."
-                </p>
+          {/* Right side - Quote */}
+          <div className="flex-1 max-w-xl">
+            <div className="relative">
+              <Quote className="w-10 h-10 text-accent/40 mb-6" />
+              
+              <div className="relative min-h-[120px]">
+                {testimonials.map((testimonial, index) => (
+                  <p
+                    key={index}
+                    className={`text-xl md:text-2xl leading-relaxed text-foreground/90 font-light italic transition-all duration-500 absolute inset-0 ${
+                      index === activeIndex
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4 pointer-events-none"
+                    }`}
+                  >
+                    {testimonial.quote}
+                  </p>
+                ))}
               </div>
 
-              <Button
-                variant="outline"
-                className="w-full mt-4 border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+              {/* Role */}
+              <div
+                className="mt-8 text-muted-foreground transition-all duration-500"
+                key={activeIndex}
               >
-                View All
-              </Button>
+                — {testimonials[activeIndex].role}
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Navigation dots */}
+        <div className="flex justify-center gap-2 mt-12">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleClick(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === activeIndex
+                  ? "bg-accent w-6"
+                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
