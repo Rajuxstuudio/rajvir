@@ -325,6 +325,38 @@
   animation: scroll-left 25s linear infinite;
 }
 
-.animate-scroll-left:hover {
-  animation-play-state: paused;
+/* Torch sweep effect - moves spotlight across when paused */
+@keyframes torch-sweep {
+  0% {
+    left: -20%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-torch-sweep > div {
+  animation: torch-sweep 3s ease-in-out infinite;
+}
+
+/* Glow trail effect during movement */
+@keyframes glow-trail {
+  0% {
+    left: -10%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-glow-trail > div {
+  animation: glow-trail 4s ease-in-out infinite;
 }
