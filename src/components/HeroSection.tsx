@@ -46,7 +46,7 @@ export const HeroSection = () => {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-12 lg:mb-16 animate-fade-in-up animation-delay-400">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-12 lg:mb-12 animate-fade-in-up animation-delay-400">
           <Button variant="hero" size="xl" asChild>
             <a href="#projects">View My Work</a>
           </Button>
@@ -94,7 +94,7 @@ export const HeroSection = () => {
         <ToolsStrip />
 
         {/* Scroll indicator */}
-        <div className="mt-12 lg:mt-16 animate-bounce">
+        <div className="mt-12 lg:mt-12 animate-bounce">
           <a
             href="#projects"
             className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
