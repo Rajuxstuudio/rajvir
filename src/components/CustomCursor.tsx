@@ -154,19 +154,17 @@ export const CustomCursor = () => {
         )}
       </div>
 
-      {/* Click ripples */}
+      {/* Click ripples - circular */}
       {ripples.map((ripple) => (
         <div
           key={ripple.id}
-          className="fixed pointer-events-none z-[9997] -translate-x-1/2 -translate-y-1/2 animate-cursor-ripple"
+          className="fixed pointer-events-none z-[9997] -translate-x-1/2 -translate-y-1/2 animate-cursor-ripple rounded-full"
           style={{
             left: ripple.x,
             top: ripple.y,
             width: "60px",
             height: "60px",
-            borderRadius: "50%",
-            border: "2px solid",
-            borderImage: "conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b) 1",
+            border: "2px solid #ff6b6b",
           }}
         />
       ))}
