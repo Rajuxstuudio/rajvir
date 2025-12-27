@@ -79,8 +79,11 @@ export const HeroSection = () => {
           ))}
         </div>
 
-        {/* Tools Strip */}
-        <ToolsStrip />
+        {/* Tools Carousel */}
+        <div className="mt-16 lg:mt-20 animate-fade-in-up animation-delay-600">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-6">Tools I Work With</p>
+          <ToolsStrip />
+        </div>
 
         {/* Scroll indicator */}
         <div className="mt-12 lg:mt-16 animate-bounce">
