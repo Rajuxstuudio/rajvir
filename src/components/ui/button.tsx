@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -15,14 +15,33 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-gradient-to-r from-primary to-orange-400 text-primary-foreground font-semibold hover:shadow-xl hover:shadow-primary/30 hover:scale-105 active:scale-95",
-        glass: "backdrop-blur-xl bg-card/40 border border-border/50 text-foreground hover:bg-card/60 hover:border-primary/50",
+        // 3D Spline-style buttons
+        hero: `relative bg-gradient-to-br from-violet-500 via-fuchsia-500 to-purple-600 text-white font-bold 
+               shadow-[0_6px_0_0_rgba(109,40,217,0.8),0_10px_20px_rgba(139,92,246,0.4)] 
+               hover:shadow-[0_4px_0_0_rgba(109,40,217,0.8),0_8px_15px_rgba(139,92,246,0.5)] 
+               hover:translate-y-[2px] active:translate-y-[4px] active:shadow-[0_2px_0_0_rgba(109,40,217,0.8)]
+               before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-t before:from-transparent before:to-white/20`,
+        glass: `relative backdrop-blur-xl bg-card/30 border-2 border-violet-400/30 text-white font-semibold
+                shadow-[0_4px_0_0_rgba(139,92,246,0.3),0_8px_20px_rgba(139,92,246,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]
+                hover:shadow-[0_2px_0_0_rgba(139,92,246,0.3),0_6px_15px_rgba(139,92,246,0.3)]
+                hover:translate-y-[2px] hover:border-violet-400/50 active:translate-y-[3px]
+                before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-t before:from-transparent before:to-white/5`,
+        spline: `relative bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 text-white font-bold
+                 shadow-[0_6px_0_0_rgba(59,130,246,0.8),0_10px_25px_rgba(59,130,246,0.4)]
+                 hover:shadow-[0_4px_0_0_rgba(59,130,246,0.8),0_8px_20px_rgba(59,130,246,0.5)]
+                 hover:translate-y-[2px] active:translate-y-[4px] active:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+                 before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-t before:from-transparent before:to-white/25`,
+        accent: `relative bg-gradient-to-br from-rose-400 via-pink-500 to-violet-500 text-white font-bold
+                 shadow-[0_6px_0_0_rgba(219,39,119,0.8),0_10px_25px_rgba(236,72,153,0.4)]
+                 hover:shadow-[0_4px_0_0_rgba(219,39,119,0.8),0_8px_20px_rgba(236,72,153,0.5)]
+                 hover:translate-y-[2px] active:translate-y-[4px] active:shadow-[0_2px_0_0_rgba(219,39,119,0.8)]
+                 before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-t before:from-transparent before:to-white/20`,
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        xl: "h-14 rounded-xl px-10 text-base",
+        default: "h-11 px-5 py-2",
+        sm: "h-9 rounded-lg px-4",
+        lg: "h-12 rounded-xl px-8",
+        xl: "h-14 rounded-2xl px-10 text-base",
         icon: "h-10 w-10",
       },
     },

@@ -135,8 +135,8 @@ export const ServicesSection = () => {
               </div>
 
               <Button
-                variant="outline"
-                className="w-full border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 group-hover:shadow-[0_0_20px_hsl(var(--accent)/0.4)]"
+                variant="spline"
+                className="w-full"
               >
                 View All Services
                 <ArrowRight className="w-4 h-4 ml-2" />
