@@ -40,24 +40,24 @@ export const TestimonialsSection = () => {
     setActiveIndex(index);
   };
 
-  // Calculate position on semi-circle arc
+  // Calculate position on vertical semi-circle arc
   const getPosition = (index: number, total: number) => {
     // Offset index based on active to keep active in center
     const offset = index - activeIndex;
     const normalizedOffset = ((offset % total) + total) % total;
     const adjustedOffset = normalizedOffset > total / 2 ? normalizedOffset - total : normalizedOffset;
     
-    // Arc angle (spread items across ~120 degrees)
-    const angleSpread = 50; // degrees per item
+    // Arc angle (spread items across vertical arc)
+    const angleSpread = 45; // degrees per item
     const angle = adjustedOffset * angleSpread;
     const angleRad = (angle * Math.PI) / 180;
     
     // Semi-circle radius
-    const radius = 120;
+    const radius = 100;
     
-    // Calculate x,y on arc (arc opens to the right)
-    const x = Math.sin(angleRad) * radius;
-    const y = -Math.cos(angleRad) * radius;
+    // Calculate x,y on vertical arc (arc curves to the right, items move vertically)
+    const x = Math.sin(Math.abs(angleRad)) * radius * 0.3;
+    const y = Math.sin(angleRad) * radius;
     
     return { x, y, angle: adjustedOffset };
   };
@@ -84,17 +84,16 @@ export const TestimonialsSection = () => {
         {/* Testimonials Layout */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 max-w-5xl mx-auto">
           {/* Left side - Semi-circle rotating carousel */}
-          <div className="relative w-72 h-80 flex items-center justify-center">
-            {/* Curved connecting line */}
+          <div className="relative w-64 h-72 flex items-center justify-center">
+            {/* Curved connecting line - vertical */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
-              viewBox="-150 -160 300 320"
+              viewBox="-130 -140 260 280"
               fill="none"
             >
               <path
-                d="M 0 -120 
-                   Q 80 -80 100 0 
-                   Q 80 80 0 120"
+                d="M 30 -100 
+                   Q 50 0 30 100"
                 stroke="hsl(var(--border))"
                 strokeWidth="2"
                 strokeDasharray="6 6"
