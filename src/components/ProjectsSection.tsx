@@ -2,7 +2,7 @@ import { Carousel3D } from "./Carousel3D";
 
 export const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-20 lg:py-32 relative">
+    <section id="projects" className="min-h-screen flex flex-col justify-center py-16 lg:py-20 relative">
       {/* Background pattern */}
       <div 
         className="absolute inset-0 opacity-[0.015]"

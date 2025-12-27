@@ -33,7 +33,7 @@ export const ServicesSection = () => {
   const IconIdentity = services[3].icon;
 
   return (
-    <section className="py-20 lg:py-32 relative">
+    <section className="min-h-screen flex flex-col justify-center py-16 lg:py-20 relative">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section header */}
         <div className="text-center mb-12 lg:mb-20">
