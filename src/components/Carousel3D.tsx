@@ -58,6 +58,8 @@ export const Carousel3D = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
 
   const nextSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % projects.length);
@@ -69,9 +71,30 @@ export const Carousel3D = () => {
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-    const interval = setInterval(nextSlide, 4000);
+    const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
+
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDragging(true);
+    setIsAutoPlaying(false);
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    setStartX(clientX);
+  };
+
+  const handleDragEnd = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
+    const diff = startX - clientX;
+    
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+    
+    setTimeout(() => setIsAutoPlaying(true), 3000);
+  };
 
   const getCardStyle = (index: number) => {
     const diff = index - activeIndex;
@@ -82,118 +105,174 @@ export const Carousel3D = () => {
       adjustedDiff = normalizedDiff - projects.length;
     }
 
-    const translateX = adjustedDiff * 280;
-    const translateZ = Math.abs(adjustedDiff) === 0 ? 100 : -Math.abs(adjustedDiff) * 100;
-    const rotateY = adjustedDiff * -15;
-    const scale = Math.abs(adjustedDiff) === 0 ? 1 : 0.85 - Math.abs(adjustedDiff) * 0.1;
-    const opacity = Math.abs(adjustedDiff) <= 2 ? 1 - Math.abs(adjustedDiff) * 0.25 : 0;
-    const zIndex = 10 - Math.abs(adjustedDiff);
+    const isCenter = adjustedDiff === 0;
+    const absD = Math.abs(adjustedDiff);
+    
+    // Smooth, wide spacing like Spline widget carousel
+    const translateX = adjustedDiff * 320;
+    const translateZ = isCenter ? 80 : -absD * 120;
+    const rotateY = adjustedDiff * -12;
+    const scale = isCenter ? 1.05 : Math.max(0.7, 0.9 - absD * 0.12);
+    const opacity = absD <= 2 ? 1 - absD * 0.3 : 0;
+    const zIndex = 10 - absD;
 
     return {
       transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
       opacity,
       zIndex,
+      filter: isCenter ? 'none' : `blur(${absD * 1.5}px)`,
     };
   };
 
   return (
-    <div className="relative w-full py-20">
-      {/* Background glow */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[600px] h-[400px] rounded-full bg-primary/10 blur-[120px] animate-pulse-glow" />
+    <div className="relative w-full py-16">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+        <div className="w-[800px] h-[500px] rounded-full bg-gradient-radial from-primary/20 via-primary/5 to-transparent blur-3xl animate-pulse-glow" />
       </div>
 
       {/* Carousel container */}
       <div 
-        className="relative h-[500px] perspective-1000 flex items-center justify-center"
+        className="relative h-[520px] flex items-center justify-center select-none"
+        style={{ perspective: '1200px' }}
         onMouseEnter={() => setIsAutoPlaying(false)}
-        onMouseLeave={() => setIsAutoPlaying(true)}
+        onMouseLeave={(e) => {
+          if (isDragging) handleDragEnd(e);
+          else setIsAutoPlaying(true);
+        }}
+        onMouseDown={handleDragStart}
+        onMouseUp={handleDragEnd}
+        onTouchStart={handleDragStart}
+        onTouchEnd={handleDragEnd}
       >
-        <div className="preserve-3d relative w-[320px] h-[420px]">
-          {projects.map((project, index) => (
-            <div
-              key={project.id}
-              className={cn(
-                "absolute w-[320px] h-[420px] transition-all duration-700 ease-out cursor-pointer",
-                index === activeIndex && "cursor-pointer"
-              )}
-              style={getCardStyle(index)}
-              onClick={() => {
-                if (index === activeIndex) {
-                  window.open(project.link, "_blank");
-                } else {
-                  setActiveIndex(index);
-                }
-              }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className={cn(
-                "relative w-full h-full rounded-2xl overflow-hidden bg-gradient-card border border-border/50 shadow-2xl transition-all duration-500",
-                index === activeIndex && hoveredIndex === index && "border-primary/50 glow scale-105"
-              )}>
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-                </div>
+        <div 
+          className="relative w-[340px] h-[440px]"
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          {projects.map((project, index) => {
+            const isActive = index === activeIndex;
+            const isHovered = hoveredIndex === index && isActive;
+            
+            return (
+              <div
+                key={project.id}
+                className="absolute inset-0 cursor-pointer"
+                style={{
+                  ...getCardStyle(index),
+                  transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                  willChange: 'transform, opacity, filter',
+                }}
+                onClick={() => {
+                  if (isActive) {
+                    window.open(project.link, "_blank");
+                  } else {
+                    setActiveIndex(index);
+                  }
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <div 
+                  className={cn(
+                    "relative w-full h-full rounded-3xl overflow-hidden",
+                    "bg-gradient-to-b from-card/90 to-card/70",
+                    "border border-border/30",
+                    "backdrop-blur-xl",
+                    "transition-all duration-500 ease-out",
+                    isActive && "shadow-2xl shadow-primary/20",
+                    isHovered && "border-primary/40 shadow-3xl shadow-primary/30"
+                  )}
+                  style={{
+                    boxShadow: isActive 
+                      ? '0 25px 80px -20px rgba(0,0,0,0.5), 0 0 60px -10px hsl(var(--primary) / 0.2)' 
+                      : '0 15px 40px -15px rgba(0,0,0,0.4)',
+                  }}
+                >
+                  {/* Image with overlay */}
+                  <div className="relative h-52 overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={cn(
+                        "w-full h-full object-cover transition-all duration-700",
+                        isHovered && "scale-110"
+                      )}
+                      draggable={false}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+                    
+                    {/* Floating category badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1.5 text-xs font-medium rounded-full bg-background/80 backdrop-blur-md text-foreground border border-border/30">
+                        {project.category}
+                      </span>
+                    </div>
+                  </div>
 
-                {/* Content */}
-                <div className="p-6 space-y-3">
-                  <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary">
-                    {project.category}
-                  </span>
-                  <h3 className="text-xl font-display font-semibold text-foreground">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {project.description}
-                  </p>
-                </div>
+                  {/* Content */}
+                  <div className="p-6 space-y-3">
+                    <h3 className="text-xl font-display font-semibold text-foreground tracking-tight">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
 
-                {/* Hover overlay */}
-                <div className={cn(
-                  "absolute inset-0 bg-primary/90 flex flex-col items-center justify-center gap-4 transition-opacity duration-300",
-                  index === activeIndex && hoveredIndex === index ? "opacity-100" : "opacity-0"
-                )}>
-                  <ExternalLink className="w-10 h-10 text-primary-foreground" />
-                  <span className="text-primary-foreground font-display font-semibold text-lg">
-                    View Project
-                  </span>
-                  <p className="text-primary-foreground/80 text-sm text-center px-6">
-                    {project.description}
-                  </p>
+                  {/* Hover CTA overlay */}
+                  <div 
+                    className={cn(
+                      "absolute inset-0 flex flex-col items-center justify-center gap-3",
+                      "bg-gradient-to-t from-primary/95 via-primary/90 to-primary/80",
+                      "backdrop-blur-sm",
+                      "transition-all duration-500 ease-out",
+                      isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
+                    )}
+                  >
+                    <div className="w-14 h-14 rounded-full bg-primary-foreground/20 flex items-center justify-center backdrop-blur-sm">
+                      <ExternalLink className="w-6 h-6 text-primary-foreground" />
+                    </div>
+                    <span className="text-primary-foreground font-display font-semibold text-lg">
+                      View Project
+                    </span>
+                    <p className="text-primary-foreground/80 text-sm text-center px-8 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center justify-center gap-6 mt-8">
+      <div className="flex items-center justify-center gap-8 mt-8">
         <button
           onClick={prevSlide}
-          className="p-3 rounded-full glass hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
+          className={cn(
+            "group p-4 rounded-full",
+            "bg-card/50 backdrop-blur-md",
+            "border border-border/30",
+            "hover:bg-primary/10 hover:border-primary/40",
+            "transition-all duration-300 ease-out",
+            "hover:scale-105 active:scale-95"
+          )}
         >
-          <ChevronLeft className="w-6 h-6 text-foreground" />
+          <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
         </button>
 
-        {/* Dots */}
-        <div className="flex gap-2">
+        {/* Progress dots */}
+        <div className="flex gap-3">
           {projects.map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
               className={cn(
-                "w-2 h-2 rounded-full transition-all duration-300",
+                "h-2 rounded-full transition-all duration-500 ease-out",
                 index === activeIndex 
-                  ? "w-8 bg-primary" 
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  ? "w-10 bg-primary shadow-lg shadow-primary/40" 
+                  : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
               )}
             />
           ))}
@@ -201,9 +280,16 @@ export const Carousel3D = () => {
 
         <button
           onClick={nextSlide}
-          className="p-3 rounded-full glass hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
+          className={cn(
+            "group p-4 rounded-full",
+            "bg-card/50 backdrop-blur-md",
+            "border border-border/30",
+            "hover:bg-primary/10 hover:border-primary/40",
+            "transition-all duration-300 ease-out",
+            "hover:scale-105 active:scale-95"
+          )}
         >
-          <ChevronRight className="w-6 h-6 text-foreground" />
+          <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
         </button>
       </div>
     </div>
