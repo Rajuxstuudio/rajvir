@@ -1,4 +1,4 @@
-import { Carousel3D } from "./Carousel3D";
+import { PortfolioGallery } from "./PortfolioGallery";
 
 export const ProjectsSection = () => {
   return (
@@ -13,18 +13,21 @@ export const ProjectsSection = () => {
       />
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Section header - Huly style */}
-        <div className="text-center mb-8">
+        {/* Section header */}
+        <div className="text-center mb-12">
+          <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-4">
+            Portfolio
+          </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-foreground mb-4 tracking-tight">
-            Unmatched productivity
+            Featured Work
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            A curated selection of projects showcasing process, project, time, and knowledge management.
+            A curated selection of projects showcasing UI/UX design, identity design, and web development.
           </p>
         </div>
 
-        {/* 3D Carousel */}
-        <Carousel3D />
+        {/* Portfolio Gallery */}
+        <PortfolioGallery />
       </div>
     </section>
   );
