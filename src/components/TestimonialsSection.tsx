@@ -162,18 +162,18 @@ export const TestimonialsSection = () => {
                       {testimonial.author.charAt(0)}
                     </div>
 
-                    {/* Name and rating - show on right for left-curving carousel */}
+                    {/* Name and rating - show on left of avatar */}
                     <div
-                      className={`absolute left-full ml-4 top-1/2 -translate-y-1/2 whitespace-nowrap transition-all duration-500 ${
+                      className={`absolute right-full mr-4 top-1/2 -translate-y-1/2 whitespace-nowrap text-right transition-all duration-500 ${
                         isActive
                           ? "opacity-100 translate-x-0"
-                          : "opacity-0 -translate-x-4 pointer-events-none"
+                          : "opacity-0 translate-x-4 pointer-events-none"
                       }`}
                     >
                       <div className="font-display font-semibold text-foreground">
                         {testimonial.author}
                       </div>
-                      <div className="flex items-center gap-1 text-sm">
+                      <div className="flex items-center justify-end gap-1 text-sm">
                         <Star className="w-4 h-4 fill-accent text-accent" />
                         <span className="text-accent font-medium">{testimonial.rating}</span>
                         <span className="text-muted-foreground text-xs">on {testimonial.date}</span>
