@@ -87,8 +87,15 @@ export const AnimatedLogo = () => {
             )}
             style={{
               textShadow: isHovered 
-                ? "0 0 20px rgba(255,255,255,0.6), 0 2px 10px rgba(168, 85, 247, 0.5)" 
-                : "0 2px 10px rgba(255,255,255,0.3)",
+                ? `0 0 20px rgba(168, 85, 247, 0.8),
+                   0 0 40px rgba(168, 85, 247, 0.5),
+                   2px 2px 0px rgba(139, 92, 246, 0.8),
+                   3px 3px 0px rgba(124, 58, 237, 0.6),
+                   4px 4px 8px rgba(0, 0, 0, 0.4)` 
+                : `0 2px 10px rgba(255, 255, 255, 0.3),
+                   1px 1px 0px rgba(139, 92, 246, 0.6),
+                   2px 2px 0px rgba(124, 58, 237, 0.4),
+                   3px 3px 6px rgba(0, 0, 0, 0.3)`,
               transition: "text-shadow 0.3s ease"
             }}
           >
