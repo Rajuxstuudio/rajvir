@@ -2,7 +2,7 @@ import { Carousel3D } from "./Carousel3D";
 
 export const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-24 relative">
+    <section id="projects" className="py-20 lg:py-32 relative">
       {/* Background pattern */}
       <div 
         className="absolute inset-0 opacity-[0.015]"
@@ -12,16 +12,16 @@ export const ProjectsSection = () => {
         }}
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-8">
-          <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-4">
+        <div className="text-center mb-12 lg:mb-16">
+          <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-4 lg:mb-6">
             Portfolio
           </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4 lg:mb-6">
             Featured Projects
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             A curated selection of my best work. Click to explore each project in detail.
           </p>
         </div>

@@ -33,26 +33,26 @@ export const ServicesSection = () => {
   const IconIdentity = services[3].icon;
 
   return (
-    <section className="py-24 relative">
-      <div className="container mx-auto px-6">
+    <section className="py-20 lg:py-32 relative">
+      <div className="container mx-auto px-6 lg:px-12">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-4">
+        <div className="text-center mb-12 lg:mb-20">
+          <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-4 lg:mb-6">
             What I Do
           </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4 lg:mb-6">
             Services
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             From concept to launch, I deliver end-to-end design solutions that elevate your digital presence.
           </p>
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid md:grid-cols-12 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-12 gap-4 lg:gap-6 max-w-6xl mx-auto">
           {/* Large Left Card - UI/UX Design */}
           <div
-            className="md:col-span-5 row-span-2 p-8 rounded-3xl glass border border-border/30 animate-fade-in-up group hover:border-accent/50 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)] transition-all duration-500"
+            className="md:col-span-5 row-span-2 p-6 lg:p-8 rounded-2xl lg:rounded-3xl glass border border-border/30 animate-fade-in-up group hover:border-accent/50 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)] transition-all duration-500"
             style={{ animationDelay: "0ms" }}
           >
             {/* Stat */}
@@ -100,7 +100,7 @@ export const ServicesSection = () => {
           </div>
 
           {/* Bottom Right - Two cards side by side */}
-          <div className="md:col-span-7 grid md:grid-cols-2 gap-6">
+          <div className="md:col-span-7 grid md:grid-cols-2 gap-4 lg:gap-6">
             {/* Web Development */}
             <div
               className="p-6 rounded-3xl glass border border-border/30 animate-fade-in-up group hover:border-accent/50 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)] transition-all duration-500"
