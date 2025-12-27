@@ -1,5 +1,6 @@
 import { Quote, Star } from "lucide-react";
 import { useState, useEffect } from "react";
+import rupaAvatar from "@/assets/rupa-avatar.png";
 
 const testimonials = [
   {
@@ -8,6 +9,7 @@ const testimonials = [
     role: "Customer",
     date: "April 2025",
     rating: 4.9,
+    avatar: null,
   },
   {
     quote: "Raj Vir's mentoring was invaluable. His clear breakdown of complex UX concepts and consistent availability made learning effortless.",
@@ -15,6 +17,7 @@ const testimonials = [
     role: "UX Designer at Solveda",
     date: "Feb 2025",
     rating: 4.9,
+    avatar: rupaAvatar,
   },
   {
     quote: "Rajvir is a UX treasure trove. His rapid insight into UX flows was critical to our product goals and user satisfaction.",
@@ -22,6 +25,7 @@ const testimonials = [
     role: "SaaS & Robotics",
     date: "Feb 2022",
     rating: 4.9,
+    avatar: null,
   },
 ];
 
@@ -90,13 +94,17 @@ export const TestimonialsSection = () => {
                   onClick={() => handleClick(index)}
                 >
                   <div
-                    className={`rounded-full transition-all duration-500 flex items-center justify-center font-display font-bold ${
+                    className={`rounded-full transition-all duration-500 flex items-center justify-center font-display font-bold overflow-hidden ${
                       isActive
                         ? "w-14 h-14 ring-2 ring-accent ring-offset-2 ring-offset-background bg-gradient-accent text-accent-foreground text-lg scale-100"
                         : "w-10 h-10 bg-muted text-muted-foreground text-sm scale-90 opacity-50"
                     }`}
                   >
-                    {testimonial.author.charAt(0)}
+                    {testimonial.avatar ? (
+                      <img src={testimonial.avatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                    ) : (
+                      testimonial.author.charAt(0)
+                    )}
                   </div>
                 </div>
               );
@@ -208,13 +216,17 @@ export const TestimonialsSection = () => {
                     }`}
                   >
                     <div
-                      className={`rounded-full transition-all duration-500 flex items-center justify-center font-display font-bold ${
+                      className={`rounded-full transition-all duration-500 flex items-center justify-center font-display font-bold overflow-hidden ${
                         isActive
                           ? "w-16 h-16 ring-2 ring-accent ring-offset-2 ring-offset-background bg-gradient-accent text-accent-foreground text-xl"
                           : "w-12 h-12 bg-muted text-muted-foreground text-sm"
                       }`}
                     >
-                      {testimonial.author.charAt(0)}
+                      {testimonial.avatar ? (
+                        <img src={testimonial.avatar} alt={testimonial.author} className="w-full h-full object-cover" />
+                      ) : (
+                        testimonial.author.charAt(0)
+                      )}
                     </div>
 
                     <div
