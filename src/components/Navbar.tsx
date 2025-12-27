@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Pricing", href: "#services" },
-  { label: "Resources", href: "#projects", hasDropdown: true },
-  { label: "Community", href: "#testimonials", hasDropdown: true },
-  { label: "Download", href: "#" },
+  { label: "Projects", href: "#projects" },
+  { label: "Services", href: "#services" },
+  { label: "Testimonials", href: "#testimonials" },
 ];
 
 export const Navbar = () => {
@@ -53,23 +52,20 @@ export const Navbar = () => {
                 className="flex items-center gap-1 px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
               >
                 {link.label}
-                {link.hasDropdown && <ChevronDown className="w-3.5 h-3.5" />}
               </a>
             ))}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm" asChild>
-              <a href="#">Sign In</a>
-            </Button>
-            <Button variant="default" size="sm" className="rounded-full px-5" asChild>
+          {/* Resume Button */}
+          <div className="hidden md:flex items-center">
+            <Button variant="default" size="sm" className="rounded-full px-5 gap-2" asChild>
               <a
                 href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Sign Up
+                <FileText className="w-4 h-4" />
+                View Resume
               </a>
             </Button>
           </div>
@@ -99,20 +95,17 @@ export const Navbar = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
-                  {link.hasDropdown && <ChevronDown className="w-4 h-4 text-muted-foreground" />}
                 </a>
               ))}
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-                <Button variant="ghost" size="lg" className="w-full justify-center">
-                  Sign In
-                </Button>
-                <Button variant="default" size="lg" className="w-full justify-center rounded-full" asChild>
+                <Button variant="default" size="lg" className="w-full justify-center rounded-full gap-2" asChild>
                   <a
                     href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Sign Up
+                    <FileText className="w-4 h-4" />
+                    View Resume
                   </a>
                 </Button>
               </div>

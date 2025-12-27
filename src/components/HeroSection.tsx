@@ -1,5 +1,12 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, Briefcase } from "lucide-react";
 import { Button } from "./ui/button";
+
+const stats = [
+  { label: "Experience", value: "20+" },
+  { label: "Clients", value: "80" },
+  { label: "Projects", value: "72+" },
+  { label: "Templates", value: "72+" },
+];
 
 export const HeroSection = () => {
   return (
@@ -46,22 +53,39 @@ export const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
-        {/* Main heading - large and impactful like Huly */}
+        {/* Availability badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-fade-in-up">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-sm text-muted-foreground">Open to work</span>
+        </div>
+
+        {/* Main heading */}
         <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-semibold mb-6 animate-fade-in-up leading-[1.1] tracking-tight">
-          <span className="text-foreground">Everything App</span>
+          <span className="text-foreground">Product</span>
           <br />
-          <span className="text-foreground">for your </span>
-          <span className="text-gradient">teams</span>
+          <span className="text-gradient">UX/UI Designer</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in-up animation-delay-200 leading-relaxed">
-          A product designer crafting purposeful experiences, 
-          serving as an all-in-one replacement for complex design workflows.
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 animate-fade-in-up animation-delay-200 leading-relaxed">
+          Crafting purposeful pixels, animations, and flows that tell compelling stories and drive engagement. Focused on usability, logic, and design fundamentals.
         </p>
 
-        {/* CTA Button - Huly style with arrow */}
-        <div className="flex items-center justify-center gap-4 mb-20 animate-fade-in-up animation-delay-300">
+        {/* Location */}
+        <div className="flex items-center justify-center gap-4 mb-10 animate-fade-in-up animation-delay-300 text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4" />
+            <span className="text-sm">India</span>
+          </div>
+          <span className="text-border">•</span>
+          <div className="flex items-center gap-2">
+            <Briefcase className="w-4 h-4" />
+            <span className="text-sm">Figma Expert</span>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="flex items-center justify-center gap-4 mb-16 animate-fade-in-up animation-delay-400">
           <Button 
             variant="outline" 
             size="xl" 
@@ -69,38 +93,26 @@ export const HeroSection = () => {
             asChild
           >
             <a href="#projects" className="flex items-center gap-3">
-              See in Action
+              View Portfolio
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>
         </div>
 
-        {/* Feature pills - like Huly's horizontal list */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-12 animate-fade-in-up animation-delay-400">
-          <span className="text-sm text-muted-foreground">Everything you need for productive team work:</span>
-        </div>
-        
-        <div className="flex flex-wrap items-center justify-center gap-2 animate-fade-in-up animation-delay-500">
-          {[
-            "Team Planner",
-            "Project Management", 
-            "Virtual Office",
-            "Chat",
-            "Documents",
-            "Inbox"
-          ].map((feature, index) => (
-            <span 
-              key={index}
-              className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default"
-            >
-              {feature}
-              {index < 5 && <span className="ml-2 text-border">•</span>}
-            </span>
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 max-w-3xl mx-auto animate-fade-in-up animation-delay-500">
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-3xl md:text-4xl font-display font-bold text-foreground mb-1">
+                {stat.value}
+              </div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Bottom fade for hero image area */}
+      {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
