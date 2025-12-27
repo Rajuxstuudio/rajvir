@@ -1,6 +1,7 @@
 import { ArrowDown, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
 import { ToolsStrip } from "./ToolsStrip";
+import { AnimatedCounter } from "./AnimatedCounter";
 export const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
@@ -65,25 +66,29 @@ export const HeroSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-12 max-w-4xl mx-auto animate-fade-in-up animation-delay-500">
           {[
             {
-              value: "20+",
+              value: 3,
+              suffix: "+",
               label: "Years Experience",
             },
             {
-              value: "80",
+              value: 11,
+              suffix: "",
               label: "Happy Clients",
             },
             {
-              value: "72+",
+              value: 12,
+              suffix: "",
               label: "Projects Completed",
             },
             {
-              value: "72+",
+              value: 100,
+              suffix: "+",
               label: "Templates Created",
             },
           ].map((stat, index) => (
             <div key={index} className="text-center p-4 lg:p-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gradient mb-2">
-                {stat.value}
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
             </div>
