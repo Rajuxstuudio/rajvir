@@ -59,20 +59,20 @@ export const TestimonialsSection = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden">
+    <section className="py-20 lg:py-32 relative overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[200px] md:h-[400px] rounded-full bg-accent/5 blur-[100px] md:blur-[150px]" />
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Section header */}
-        <div className="text-center mb-10 md:mb-16">
-          <span className="inline-block px-3 py-1.5 md:px-4 md:py-2 rounded-full glass text-xs md:text-sm font-medium text-accent mb-3 md:mb-4">
+        <div className="text-center mb-12 lg:mb-20">
+          <span className="inline-block px-4 py-2 rounded-full glass text-xs md:text-sm font-medium text-accent mb-4 lg:mb-6">
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4 lg:mb-6">
             Results that speaks volume
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto px-4">
+          <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Find out how our happy clients are raving about us.
           </p>
         </div>

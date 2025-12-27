@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-dark" />
       
@@ -22,31 +22,31 @@ export const HeroSection = () => {
       />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center">
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-fade-in-up">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 lg:mb-12 animate-fade-in-up">
           <Sparkles className="w-4 h-4 text-primary" />
           <span className="text-sm font-medium text-foreground">Open to Work</span>
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
         </div>
 
         {/* Main heading */}
-        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-up animation-delay-100">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 lg:mb-8 animate-fade-in-up animation-delay-100">
           <span className="text-foreground">Hi, I'm </span>
           <span className="text-gradient glow-text">Rajvir</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4 font-display animate-fade-in-up animation-delay-200">
+        <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4 lg:mb-6 font-display animate-fade-in-up animation-delay-200">
           Product UX/UI Designer
         </p>
         
-        <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-12 animate-fade-in-up animation-delay-300">
+        <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto mb-10 lg:mb-14 animate-fade-in-up animation-delay-300 leading-relaxed">
           Crafting purposeful pixels, animations, and flows that tell compelling stories and drive engagement.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up animation-delay-400">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-16 lg:mb-20 animate-fade-in-up animation-delay-400">
           <Button variant="hero" size="xl" asChild>
             <a href="#projects">View My Work</a>
           </Button>
@@ -62,18 +62,18 @@ export const HeroSection = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto animate-fade-in-up animation-delay-500">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-12 max-w-4xl mx-auto animate-fade-in-up animation-delay-500">
           {[
             { value: "20+", label: "Years Experience" },
             { value: "80", label: "Happy Clients" },
             { value: "72+", label: "Projects Completed" },
             { value: "72+", label: "Templates Created" },
           ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-display font-bold text-gradient mb-1">
+            <div key={index} className="text-center p-4 lg:p-6">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gradient mb-2">
                 {stat.value}
               </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </div>
