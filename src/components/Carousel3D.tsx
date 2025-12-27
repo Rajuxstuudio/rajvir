@@ -251,9 +251,9 @@ export const Carousel3D = () => {
                       </span>
                       
                       {/* Category Badge */}
-                      <div className="absolute top-3 left-3">
+                      <div className="absolute top-3 left-3 right-3">
                         <span 
-                          className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider rounded-full text-white"
+                          className="inline-block px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider rounded-lg text-white leading-tight"
                           style={{
                             background: 'rgba(255,255,255,0.2)',
                             backdropFilter: 'blur(10px)',
