@@ -1,4 +1,5 @@
 import { Heart } from "lucide-react";
+import { AnimatedLogo } from "./AnimatedLogo";
 
 export const Footer = () => {
   return (
@@ -6,14 +7,12 @@ export const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Logo/Name */}
-          <div className="font-display text-xl font-bold">
-            <span className="text-gradient">Rajvir</span>
-          </div>
+          <AnimatedLogo />
 
           {/* Copyright */}
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>© 2025 Rajvir Portfolio. Made with</span>
-            <Heart className="w-4 h-4 text-primary fill-primary" />
+            <Heart className="w-4 h-4 text-primary fill-primary animate-heartbeat" />
             <span>in India</span>
           </div>
 
