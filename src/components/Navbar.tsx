@@ -55,7 +55,7 @@ export const Navbar = () => {
 
           {/* Profile Avatar */}
           <div className="hidden md:block">
-            <div className="relative h-11 px-3 rounded-xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-purple-600 shadow-[0_6px_0_0_rgba(109,40,217,0.8),0_10px_20px_rgba(139,92,246,0.4)] overflow-hidden flex items-center justify-center">
+            <div className="relative h-11 px-3 rounded-xl bg-secondary shadow-md overflow-hidden flex items-center justify-center">
               <img 
                 src={profileAvatar} 
                 alt="Profile"
@@ -91,7 +91,7 @@ export const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <div className="relative h-12 px-3 rounded-xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-purple-600 shadow-[0_6px_0_0_rgba(109,40,217,0.8),0_10px_20px_rgba(139,92,246,0.4)] overflow-hidden flex items-center justify-center mt-4">
+              <div className="relative h-12 px-3 rounded-xl bg-secondary shadow-md overflow-hidden flex items-center justify-center mt-4">
                 <img 
                   src={profileAvatar} 
                   alt="Profile"
