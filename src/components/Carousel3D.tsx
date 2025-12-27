@@ -304,28 +304,31 @@ export const Carousel3D = () => {
                       </p>
                     </div>
 
-                    {/* Hover Overlay - Full Cover with Blur */}
+                    {/* Hover Overlay - Glass Blur Effect */}
                     <div 
                       className={cn(
-                        "absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-3xl",
+                        "absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl",
                         "transition-all duration-400 ease-out",
                         isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}
                       style={{
-                        background: 'rgba(0, 0, 0, 0.85)',
-                        backdropFilter: 'blur(20px)',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
                       }}
                     >
                       <div 
-                        className="w-16 h-16 rounded-full flex items-center justify-center"
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
                         style={{
-                          background: project.color,
-                          boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                          background: 'rgba(255, 255, 255, 0.2)',
+                          backdropFilter: 'blur(8px)',
+                          border: '1px solid rgba(255, 255, 255, 0.3)',
                         }}
                       >
-                        <ExternalLink className="w-7 h-7 text-white" />
+                        <ExternalLink className="w-5 h-5 text-white" />
                       </div>
-                      <span className="text-white font-display font-bold text-xl">
+                      <span className="text-white/90 font-display font-medium text-sm tracking-wide">
                         View Project
                       </span>
                     </div>
