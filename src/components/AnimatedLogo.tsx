@@ -85,23 +85,17 @@ export const AnimatedLogo = () => {
             <span
               key={index}
               className={cn(
-                "font-display text-xl lg:text-2xl font-bold transition-all duration-300",
+                "font-handwritten text-2xl lg:text-3xl font-bold transition-all duration-300 text-white",
                 "animate-fade-in-up"
               )}
               style={{
                 animationDelay: `${index * 0.1}s`,
-                background: `linear-gradient(135deg, 
-                  hsl(${280 + index * 15}, 80%, 60%) 0%, 
-                  hsl(${320 + index * 15}, 80%, 55%) 50%, 
-                  hsl(${360 + index * 15}, 80%, 50%) 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
                 filter: isHovered ? "brightness(1.2)" : "brightness(1)",
                 transform: isHovered 
                   ? `translateY(-2px) scale(1.05)` 
                   : "translateY(0) scale(1)",
                 transitionDelay: `${index * 50}ms`,
+                textShadow: "0 2px 10px rgba(255,255,255,0.3)"
               }}
             >
               {letter}

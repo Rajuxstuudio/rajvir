@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
+        handwritten: ["Caveat", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
