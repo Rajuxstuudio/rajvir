@@ -186,21 +186,6 @@ export const TestimonialsSection = () => {
 
           {/* Right side - Semi-circle rotating carousel */}
           <div className="relative w-64 h-72 flex items-center justify-center">
-            {/* Curved connecting line */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              viewBox="-130 -140 260 280"
-              fill="none"
-            >
-              <path
-                d="M 30 -100 
-                   Q 50 0 30 100"
-                stroke="hsl(var(--border))"
-                strokeWidth="2"
-                strokeDasharray="6 6"
-                fill="none"
-              />
-            </svg>
 
             {testimonials.map((testimonial, index) => {
               const { x, y, angle } = getPosition(index, testimonials.length, false);
