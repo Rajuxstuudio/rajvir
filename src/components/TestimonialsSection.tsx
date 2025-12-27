@@ -161,13 +161,13 @@ export const TestimonialsSection = () => {
           {/* Left side - Quote */}
           <div className="flex-1 max-w-xl">
             <div className="relative">
-              <Quote className="w-10 h-10 text-accent/40 mb-6" />
+              <Quote className="w-8 h-8 lg:w-10 lg:h-10 text-accent/40 mb-4 lg:mb-6" />
               
-              <div className="relative min-h-[120px]">
+              <div className="relative min-h-[100px] lg:min-h-[120px]">
                 {testimonials.map((testimonial, index) => (
                   <p
                     key={index}
-                    className={`text-2xl leading-relaxed text-foreground/90 font-light italic transition-all duration-500 absolute inset-0 ${
+                    className={`text-lg lg:text-2xl leading-relaxed text-foreground/90 font-light italic transition-all duration-500 absolute inset-0 ${
                       index === activeIndex
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-4 pointer-events-none"
@@ -178,7 +178,7 @@ export const TestimonialsSection = () => {
                 ))}
               </div>
 
-              <div className="mt-8 text-muted-foreground transition-all duration-500">
+              <div className="mt-6 lg:mt-8 text-sm lg:text-base text-muted-foreground transition-all duration-500">
                 — {testimonials[activeIndex].role}
               </div>
             </div>
