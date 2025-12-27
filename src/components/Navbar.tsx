@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Instagram, Linkedin, MessageCircle, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
 import profileAvatar from "@/assets/profile-avatar.png";
+
+const socialLinks = [
+  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: MessageCircle, href: "https://wa.me/", label: "WhatsApp" },
+  { icon: Mail, href: "mailto:", label: "Email" },
+];
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -14,6 +21,7 @@ const navLinks = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileExpanded, setIsProfileExpanded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,15 +61,37 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Profile Avatar */}
-          <div className="hidden md:block">
-            <div className="relative w-11 h-11 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center">
+          {/* Profile Avatar with Social Links */}
+          <div className="hidden md:flex items-center gap-2">
+            <div 
+              className={cn(
+                "flex items-center gap-2 overflow-hidden transition-all duration-300",
+                isProfileExpanded ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
+              )}
+            >
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-md bg-secondary shadow-md flex items-center justify-center hover:bg-secondary/80 transition-colors"
+                  aria-label={social.label}
+                >
+                  <social.icon className="w-5 h-5 text-foreground" />
+                </a>
+              ))}
+            </div>
+            <button
+              onClick={() => setIsProfileExpanded(!isProfileExpanded)}
+              className="relative w-11 h-11 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center hover:bg-secondary/80 transition-colors"
+            >
               <img 
                 src={profileAvatar} 
                 alt="Profile"
                 className="h-10 w-auto object-contain"
               />
-            </div>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -91,12 +121,28 @@ export const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <div className="relative w-12 h-12 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center mt-4">
-                <img 
-                  src={profileAvatar} 
-                  alt="Profile"
-                  className="h-11 w-auto object-contain"
-                />
+              {/* Profile with Social Links - Always Expanded on Mobile */}
+              <div className="flex items-center gap-2 mt-4">
+                <div className="relative w-12 h-12 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center">
+                  <img 
+                    src={profileAvatar} 
+                    alt="Profile"
+                    className="h-11 w-auto object-contain"
+                  />
+                </div>
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-md bg-secondary shadow-md flex items-center justify-center"
+                    aria-label={social.label}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <social.icon className="w-5 h-5 text-foreground" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
