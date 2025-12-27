@@ -5,10 +5,10 @@ import { AnimatedLogo } from "./AnimatedLogo";
 import profileAvatar from "@/assets/profile-avatar.png";
 
 const socialLinks = [
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: MessageCircle, href: "https://wa.me/", label: "WhatsApp" },
-  { icon: Mail, href: "mailto:", label: "Email" },
+  { icon: Instagram, href: "https://www.instagram.com/raj._.ux?igsh=MW13ZXYyZnJ4ejRxMA==", label: "Instagram" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/rajveer11/", label: "LinkedIn" },
+  { icon: MessageCircle, href: "https://wa.me/918005883696", label: "WhatsApp" },
+  { icon: Mail, href: "mailto:rajuxstudio@gmail.com", label: "Email" },
 ];
 
 const navLinks = [
