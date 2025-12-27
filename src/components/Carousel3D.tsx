@@ -55,6 +55,22 @@ const projects: Project[] = [
     color: googleColors[3],
     link: "#",
   },
+  {
+    id: 5,
+    title: "Bumper Mandi",
+    category: "AgriTech (Mobile/Web Application)",
+    description: "A digital mandi app that helps farmers sell grain securely and transparently. Simplifies transactions, ensures fair pricing, verified buyers, and real-time updates.",
+    color: googleColors[4],
+    link: "#",
+  },
+  {
+    id: 6,
+    title: "React Portfolio Website",
+    category: "Web Development",
+    description: "A modern, responsive portfolio website using React with smooth navigation, reusable components, and a clean UI. Maintained on GitHub with organized commits and clear documentation.",
+    color: googleColors[5],
+    link: "#",
+  },
 ];
 
 export const Carousel3D = () => {
