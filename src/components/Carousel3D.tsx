@@ -289,11 +289,11 @@ export const Carousel3D = () => {
                       </div>
                     </div>
 
-                    {/* Content - visible when not hovered */}
+                    {/* Content - hidden on hover */}
                     <div 
                       className={cn(
                         "p-5 space-y-2 relative z-10 transition-all duration-300",
-                        isHovered ? "opacity-0 blur-sm" : "opacity-100 blur-0"
+                        isHovered ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
                       )}
                     >
                       <h3 className="text-lg font-display font-semibold text-white tracking-tight line-clamp-1">
@@ -304,32 +304,22 @@ export const Carousel3D = () => {
                       </p>
                     </div>
 
-                    {/* Hover Overlay - Glass Blur Effect */}
+                    {/* Hover Overlay - Shows View Project with Name */}
                     <div 
                       className={cn(
-                        "absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl",
-                        "transition-all duration-400 ease-out",
-                        isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
+                        "absolute bottom-0 left-0 right-0 p-5 flex flex-col items-center justify-center gap-2",
+                        "transition-all duration-300 ease-out",
+                        isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                       )}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(12px)',
-                        WebkitBackdropFilter: 'blur(12px)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, transparent 100%)',
                       }}
                     >
-                      <div 
-                        className="w-12 h-12 rounded-full flex items-center justify-center"
-                        style={{
-                          background: 'rgba(255, 255, 255, 0.2)',
-                          backdropFilter: 'blur(8px)',
-                          border: '1px solid rgba(255, 255, 255, 0.3)',
-                        }}
-                      >
-                        <ExternalLink className="w-5 h-5 text-white" />
-                      </div>
-                      <span className="text-white/90 font-display font-medium text-sm tracking-wide">
+                      <span className="text-white/70 text-xs font-medium tracking-wider uppercase">
                         View Project
+                      </span>
+                      <span className="text-white font-display font-semibold text-base">
+                        {project.title}
                       </span>
                     </div>
                   </div>
