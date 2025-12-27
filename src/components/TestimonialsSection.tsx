@@ -1,6 +1,7 @@
 import { Quote, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import rupaAvatar from "@/assets/rupa-avatar.png";
+import vsSibiAvatar from "@/assets/vs-sibi-avatar.png";
 
 const testimonials = [
   {
@@ -9,7 +10,7 @@ const testimonials = [
     role: "Entrepreneur | UX-Product Designer | Ex-Amazon",
     date: "April 11, 2025",
     rating: 5.0,
-    avatar: null,
+    avatar: vsSibiAvatar,
   },
   {
     quote: "Raj Vir played a pivotal role in my professional growth. His ability to break down complex concepts into easily understandable modules was truly impressive. What sets him apart is his unwavering commitment to mentoring. I owe a significant part of my success as a UX designer to his mentorship.",
