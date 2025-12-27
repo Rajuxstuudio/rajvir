@@ -100,59 +100,26 @@ export const ToolsStrip = () => {
       </p>
       
       {/* Carousel container with mask */}
-      <div className="relative overflow-hidden group/carousel">
+      <div className="relative overflow-hidden">
         {/* Gradient masks for smooth fade effect */}
         <div className="absolute left-0 top-0 bottom-0 w-20 lg:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 lg:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
         
-        {/* Torch/spotlight effect - sweeps across when carousel is paused */}
-        <div className="absolute inset-0 pointer-events-none z-20 animate-torch-sweep opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
-          <div 
-            className="absolute top-1/2 -translate-y-1/2 w-32 lg:w-48 h-full"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0.1) 30%, transparent 70%)',
-              filter: 'blur(8px)',
-            }}
-          />
-        </div>
-        
-        {/* Scrolling track with glow on movement */}
-        <div className="flex animate-scroll-left group-hover/carousel:[animation-play-state:paused]">
+        {/* Scrolling track */}
+        <div className="flex animate-scroll-left">
           {duplicatedTools.map((tool, index) => (
             <div
               key={`${tool.name}-${index}`}
-              className="flex-shrink-0 flex flex-col items-center gap-2 px-6 lg:px-10 group/icon relative"
+              className="flex-shrink-0 flex flex-col items-center gap-2 px-6 lg:px-10 group"
             >
-              {/* Individual icon glow effect */}
-              <div className="absolute inset-0 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div 
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 lg:w-20 lg:h-20 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(139, 92, 246, 0.2) 40%, transparent 70%)',
-                    filter: 'blur(12px)',
-                  }}
-                />
-              </div>
-              
-              <div className="text-muted-foreground/50 group-hover/icon:text-primary group-hover/icon:drop-shadow-[0_0_12px_rgba(168,85,247,0.8)] transition-all duration-300 relative z-10">
+              <div className="text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">
                 {tool.icon}
               </div>
-              <span className="text-[10px] lg:text-xs uppercase tracking-wider text-muted-foreground/40 group-hover/icon:text-muted-foreground transition-colors duration-300 whitespace-nowrap relative z-10">
+              <span className="text-[10px] lg:text-xs uppercase tracking-wider text-muted-foreground/40 group-hover:text-muted-foreground transition-colors duration-300 whitespace-nowrap">
                 {tool.name}
               </span>
             </div>
           ))}
-        </div>
-        
-        {/* Moving glow trail effect during scroll */}
-        <div className="absolute inset-0 pointer-events-none z-5 group-hover/carousel:opacity-0 transition-opacity duration-300">
-          <div 
-            className="absolute top-0 bottom-0 w-24 lg:w-32 animate-glow-trail"
-            style={{
-              background: 'linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.15), rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.15), transparent)',
-              filter: 'blur(16px)',
-            }}
-          />
         </div>
       </div>
     </div>
