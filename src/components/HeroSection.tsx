@@ -2,10 +2,10 @@ import { ArrowRight, MapPin, Briefcase } from "lucide-react";
 import { Button } from "./ui/button";
 
 const stats = [
-  { label: "Experience", value: "20+" },
-  { label: "Clients", value: "80" },
-  { label: "Projects", value: "72+" },
-  { label: "Templates", value: "72+" },
+  { label: "Experience", value: "20+", suffix: "years" },
+  { label: "Clients", value: "80", suffix: "" },
+  { label: "Projects", value: "72+", suffix: "" },
+  { label: "Templates", value: "72+", suffix: "" },
 ];
 
 export const HeroSection = () => {
@@ -61,14 +61,14 @@ export const HeroSection = () => {
 
         {/* Main heading */}
         <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-semibold mb-6 animate-fade-in-up leading-[1.1] tracking-tight">
-          <span className="text-foreground">Product</span>
+          <span className="text-foreground">Hi, I'm Rajvir</span>
           <br />
-          <span className="text-gradient">UX/UI Designer</span>
+          <span className="text-gradient">Product UX/UI Designer</span>
         </h1>
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 animate-fade-in-up animation-delay-200 leading-relaxed">
-          Crafting purposeful pixels, animations, and flows that tell compelling stories and drive engagement. Focused on usability, logic, and design fundamentals.
+          Focused on purposeful pixels, animations, and flows that tell compelling stories and drive engagement. My craft is grounded in usability, logic, and design fundamentals.
         </p>
 
         {/* Location */}
