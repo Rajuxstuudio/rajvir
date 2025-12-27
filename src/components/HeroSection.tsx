@@ -18,7 +18,7 @@ export const HeroSection = () => {
     }} />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto lg:px-12 text-center px-[46px]">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 text-center">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 lg:mb-12 animate-fade-in-up">
           <Sparkles className="w-4 h-4 text-primary" />
