@@ -78,20 +78,9 @@ export const AnimatedLogo = () => {
         </div>
       </div>
 
-      {/* Animated Glass Name */}
+      {/* Animated Name */}
       <div className="relative overflow-hidden">
-        <div 
-          className="flex px-3 py-1 rounded-lg backdrop-blur-md transition-all duration-500"
-          style={{
-            background: isHovered 
-              ? "rgba(255, 255, 255, 0.15)" 
-              : "rgba(255, 255, 255, 0.08)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            boxShadow: isHovered 
-              ? "0 8px 32px rgba(168, 85, 247, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)" 
-              : "0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
-          }}
-        >
+        <div className="flex">
           {"Rajvir".split("").map((letter, index) => (
             <span
               key={index}
@@ -101,12 +90,14 @@ export const AnimatedLogo = () => {
               )}
               style={{
                 animationDelay: `${index * 0.1}s`,
-                background: "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 100%)",
+                background: `linear-gradient(135deg, 
+                  hsl(${280 + index * 15}, 80%, 60%) 0%, 
+                  hsl(${320 + index * 15}, 80%, 55%) 50%, 
+                  hsl(${360 + index * 15}, 80%, 50%) 100%)`,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                textShadow: "0 2px 10px rgba(255, 255, 255, 0.3)",
-                filter: isHovered ? "brightness(1.3) drop-shadow(0 0 8px rgba(255,255,255,0.5))" : "brightness(1)",
+                filter: isHovered ? "brightness(1.2)" : "brightness(1)",
                 transform: isHovered 
                   ? `translateY(-2px) scale(1.05)` 
                   : "translateY(0) scale(1)",
@@ -118,33 +109,24 @@ export const AnimatedLogo = () => {
           ))}
         </div>
         
-        {/* Glass shine effect */}
+        {/* Underline glow effect */}
         <div 
           className={cn(
-            "absolute top-0 left-0 w-full h-1/2 rounded-t-lg transition-all duration-500 pointer-events-none",
-            isHovered ? "opacity-40" : "opacity-20"
+            "absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-orange-400 transition-all duration-500",
+            isHovered ? "w-full opacity-100" : "w-0 opacity-0"
           )}
           style={{
-            background: "linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)",
+            boxShadow: "0 0 10px rgba(168, 85, 247, 0.6)"
           }}
         />
       </div>
 
-      {/* Glass sparkle effects on hover */}
+      {/* Sparkle effects on hover */}
       {isHovered && (
         <>
-          <div 
-            className="absolute -top-2 left-4 w-2 h-2 rounded-full animate-ping" 
-            style={{ background: "rgba(255,255,255,0.8)", boxShadow: "0 0 10px rgba(255,255,255,0.6)" }}
-          />
-          <div 
-            className="absolute top-1 right-0 w-1.5 h-1.5 rounded-full animate-ping" 
-            style={{ background: "rgba(255,255,255,0.7)", boxShadow: "0 0 8px rgba(255,255,255,0.5)", animationDelay: "0.2s" }}
-          />
-          <div 
-            className="absolute -bottom-1 left-8 w-1 h-1 rounded-full animate-ping" 
-            style={{ background: "rgba(255,255,255,0.6)", boxShadow: "0 0 6px rgba(255,255,255,0.4)", animationDelay: "0.4s" }}
-          />
+          <div className="absolute -top-2 left-4 w-1.5 h-1.5 rounded-full bg-yellow-400 animate-ping" />
+          <div className="absolute top-1 right-0 w-1 h-1 rounded-full bg-cyan-400 animate-ping" style={{ animationDelay: "0.2s" }} />
+          <div className="absolute -bottom-1 left-8 w-1 h-1 rounded-full bg-pink-400 animate-ping" style={{ animationDelay: "0.4s" }} />
         </>
       )}
     </a>
