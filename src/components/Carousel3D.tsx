@@ -52,26 +52,47 @@ const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
     link: "#",
   },
+  {
+    id: 6,
+    title: "Analytics Widget",
+    category: "Dashboard Design",
+    description: "Real-time metrics and KPI tracking with beautiful data visualization.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    link: "#",
+  },
+  {
+    id: 7,
+    title: "Mobile Banking",
+    category: "App Design",
+    description: "Secure and intuitive mobile banking experience with biometric authentication.",
+    image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&h=400&fit=crop",
+    link: "#",
+  },
 ];
 
 export const Carousel3D = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [rotation, setRotation] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
+  const [dragRotation, setDragRotation] = useState(0);
+
+  const itemCount = projects.length;
+  const anglePerItem = 360 / itemCount;
+  const radius = 450; // Cylinder radius
 
   const nextSlide = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % projects.length);
-  }, []);
+    setRotation((prev) => prev - anglePerItem);
+  }, [anglePerItem]);
 
   const prevSlide = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
-  }, []);
+    setRotation((prev) => prev + anglePerItem);
+  }, [anglePerItem]);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
@@ -80,198 +101,198 @@ export const Carousel3D = () => {
     setIsAutoPlaying(false);
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     setStartX(clientX);
+    setDragRotation(rotation);
   };
 
-  const handleDragEnd = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging) return;
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const diff = (clientX - startX) * 0.3;
+    setRotation(dragRotation + diff);
+  };
+
+  const handleDragEnd = () => {
     if (!isDragging) return;
     setIsDragging(false);
-    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
-    const diff = startX - clientX;
     
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) nextSlide();
-      else prevSlide();
-    }
+    // Snap to nearest card
+    const snappedRotation = Math.round(rotation / anglePerItem) * anglePerItem;
+    setRotation(snappedRotation);
     
     setTimeout(() => setIsAutoPlaying(true), 3000);
   };
 
-  const getCardStyle = (index: number) => {
-    const diff = index - activeIndex;
-    const normalizedDiff = ((diff + projects.length) % projects.length);
-    
-    let adjustedDiff = normalizedDiff;
-    if (normalizedDiff > projects.length / 2) {
-      adjustedDiff = normalizedDiff - projects.length;
-    }
-
-    const isCenter = adjustedDiff === 0;
-    const absD = Math.abs(adjustedDiff);
-    
-    // Smooth, wide spacing like Spline widget carousel
-    const translateX = adjustedDiff * 320;
-    const translateZ = isCenter ? 80 : -absD * 120;
-    const rotateY = adjustedDiff * -12;
-    const scale = isCenter ? 1.05 : Math.max(0.7, 0.9 - absD * 0.12);
-    const opacity = absD <= 2 ? 1 - absD * 0.3 : 0;
-    const zIndex = 10 - absD;
-
-    return {
-      transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
-      opacity,
-      zIndex,
-      filter: isCenter ? 'none' : `blur(${absD * 1.5}px)`,
-    };
+  const getActiveIndex = () => {
+    const normalized = (((-rotation % 360) + 360) % 360);
+    return Math.round(normalized / anglePerItem) % itemCount;
   };
 
+  const activeIndex = getActiveIndex();
+
   return (
-    <div className="relative w-full py-16">
-      {/* Ambient glow */}
+    <div className="relative w-full py-20">
+      {/* Ambient background glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        <div className="w-[800px] h-[500px] rounded-full bg-gradient-radial from-primary/20 via-primary/5 to-transparent blur-3xl animate-pulse-glow" />
+        <div className="w-[1000px] h-[600px] rounded-full bg-gradient-radial from-primary/15 via-primary/5 to-transparent blur-3xl" />
       </div>
 
-      {/* Carousel container */}
+      {/* 3D Cylinder Carousel */}
       <div 
-        className="relative h-[520px] flex items-center justify-center select-none"
+        className="relative h-[450px] flex items-center justify-center select-none overflow-hidden cursor-grab active:cursor-grabbing"
         style={{ perspective: '1200px' }}
         onMouseEnter={() => setIsAutoPlaying(false)}
-        onMouseLeave={(e) => {
-          if (isDragging) handleDragEnd(e);
-          else setIsAutoPlaying(true);
+        onMouseLeave={() => {
+          handleDragEnd();
+          setIsAutoPlaying(true);
         }}
         onMouseDown={handleDragStart}
+        onMouseMove={handleDragMove}
         onMouseUp={handleDragEnd}
         onTouchStart={handleDragStart}
+        onTouchMove={handleDragMove}
         onTouchEnd={handleDragEnd}
       >
         <div 
-          className="relative w-[340px] h-[440px]"
-          style={{ transformStyle: 'preserve-3d' }}
+          className="relative w-full h-full flex items-center justify-center"
+          style={{ 
+            transformStyle: 'preserve-3d',
+            transform: `rotateX(-8deg)`,
+          }}
         >
-          {projects.map((project, index) => {
-            const isActive = index === activeIndex;
-            const isHovered = hoveredIndex === index && isActive;
-            
-            return (
-              <div
-                key={project.id}
-                className="absolute inset-0 cursor-pointer"
-                style={{
-                  ...getCardStyle(index),
-                  transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-                  willChange: 'transform, opacity, filter',
-                }}
-                onClick={() => {
-                  if (isActive) {
-                    window.open(project.link, "_blank");
-                  } else {
-                    setActiveIndex(index);
-                  }
-                }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                <div 
-                  className={cn(
-                    "relative w-full h-full rounded-3xl overflow-hidden",
-                    "bg-gradient-to-b from-card/90 to-card/70",
-                    "border border-border/30",
-                    "backdrop-blur-xl",
-                    "transition-all duration-500 ease-out",
-                    isActive && "shadow-2xl shadow-primary/20",
-                    isHovered && "border-primary/40 shadow-3xl shadow-primary/30"
-                  )}
+          <div
+            className="relative"
+            style={{
+              transformStyle: 'preserve-3d',
+              transform: `rotateY(${rotation}deg)`,
+              transition: isDragging ? 'none' : 'transform 1s cubic-bezier(0.23, 1, 0.32, 1)',
+            }}
+          >
+            {projects.map((project, index) => {
+              const angle = index * anglePerItem;
+              const isActive = index === activeIndex;
+              const isHovered = hoveredIndex === index;
+              
+              return (
+                <div
+                  key={project.id}
+                  className="absolute"
                   style={{
-                    boxShadow: isActive 
-                      ? '0 25px 80px -20px rgba(0,0,0,0.5), 0 0 60px -10px hsl(var(--primary) / 0.2)' 
-                      : '0 15px 40px -15px rgba(0,0,0,0.4)',
+                    width: '280px',
+                    height: '340px',
+                    left: '-140px',
+                    top: '-170px',
+                    transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+                    transformStyle: 'preserve-3d',
                   }}
+                  onClick={() => {
+                    if (isActive) {
+                      window.open(project.link, "_blank");
+                    } else {
+                      const targetRotation = -index * anglePerItem;
+                      setRotation(targetRotation);
+                    }
+                  }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  {/* Image with overlay */}
-                  <div className="relative h-52 overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
+                  <div 
+                    className={cn(
+                      "w-full h-full rounded-2xl overflow-hidden",
+                      "bg-card/95 backdrop-blur-xl",
+                      "border border-border/40",
+                      "transition-all duration-500 ease-out",
+                      "shadow-xl",
+                      isActive && "border-primary/50",
+                      isHovered && isActive && "scale-105 border-primary"
+                    )}
+                    style={{
+                      boxShadow: isActive 
+                        ? '0 30px 60px -15px rgba(0,0,0,0.5), 0 0 40px -10px hsl(var(--primary) / 0.3)' 
+                        : '0 20px 40px -15px rgba(0,0,0,0.3)',
+                      backfaceVisibility: 'hidden',
+                    }}
+                  >
+                    {/* Project Image */}
+                    <div className="relative h-40 overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className={cn(
+                          "w-full h-full object-cover transition-transform duration-700",
+                          isHovered && isActive && "scale-110"
+                        )}
+                        draggable={false}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-3 left-3">
+                        <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-background/90 backdrop-blur-sm text-foreground border border-border/50">
+                          {project.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5 space-y-2">
+                      <h3 className="text-lg font-display font-semibold text-foreground tracking-tight line-clamp-1">
+                        {project.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    {/* Hover Overlay */}
+                    <div 
                       className={cn(
-                        "w-full h-full object-cover transition-all duration-700",
-                        isHovered && "scale-110"
+                        "absolute inset-0 flex flex-col items-center justify-center gap-3",
+                        "bg-gradient-to-br from-primary/95 to-primary/85",
+                        "transition-opacity duration-400 ease-out",
+                        isHovered && isActive ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}
-                      draggable={false}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
-                    
-                    {/* Floating category badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1.5 text-xs font-medium rounded-full bg-background/80 backdrop-blur-md text-foreground border border-border/30">
-                        {project.category}
+                    >
+                      <div className="w-12 h-12 rounded-full bg-primary-foreground/20 flex items-center justify-center backdrop-blur-sm">
+                        <ExternalLink className="w-5 h-5 text-primary-foreground" />
+                      </div>
+                      <span className="text-primary-foreground font-display font-semibold">
+                        View Project
                       </span>
                     </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6 space-y-3">
-                    <h3 className="text-xl font-display font-semibold text-foreground tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {/* Hover CTA overlay */}
-                  <div 
-                    className={cn(
-                      "absolute inset-0 flex flex-col items-center justify-center gap-3",
-                      "bg-gradient-to-t from-primary/95 via-primary/90 to-primary/80",
-                      "backdrop-blur-sm",
-                      "transition-all duration-500 ease-out",
-                      isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
-                    )}
-                  >
-                    <div className="w-14 h-14 rounded-full bg-primary-foreground/20 flex items-center justify-center backdrop-blur-sm">
-                      <ExternalLink className="w-6 h-6 text-primary-foreground" />
-                    </div>
-                    <span className="text-primary-foreground font-display font-semibold text-lg">
-                      View Project
-                    </span>
-                    <p className="text-primary-foreground/80 text-sm text-center px-8 leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <div className="flex items-center justify-center gap-8 mt-8">
+      {/* Navigation Controls */}
+      <div className="flex items-center justify-center gap-6 mt-10">
         <button
-          onClick={prevSlide}
+          onClick={(e) => { e.stopPropagation(); prevSlide(); }}
           className={cn(
-            "group p-4 rounded-full",
-            "bg-card/50 backdrop-blur-md",
-            "border border-border/30",
-            "hover:bg-primary/10 hover:border-primary/40",
-            "transition-all duration-300 ease-out",
+            "group p-3.5 rounded-full",
+            "bg-card/60 backdrop-blur-md",
+            "border border-border/40",
+            "hover:bg-primary/10 hover:border-primary/50",
+            "transition-all duration-300",
             "hover:scale-105 active:scale-95"
           )}
         >
           <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
         </button>
 
-        {/* Progress dots */}
-        <div className="flex gap-3">
+        {/* Progress Indicators */}
+        <div className="flex gap-2.5">
           {projects.map((_, index) => (
             <button
               key={index}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => setRotation(-index * anglePerItem)}
               className={cn(
                 "h-2 rounded-full transition-all duration-500 ease-out",
                 index === activeIndex 
-                  ? "w-10 bg-primary shadow-lg shadow-primary/40" 
+                  ? "w-8 bg-primary shadow-lg shadow-primary/50" 
                   : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
               )}
             />
@@ -279,13 +300,13 @@ export const Carousel3D = () => {
         </div>
 
         <button
-          onClick={nextSlide}
+          onClick={(e) => { e.stopPropagation(); nextSlide(); }}
           className={cn(
-            "group p-4 rounded-full",
-            "bg-card/50 backdrop-blur-md",
-            "border border-border/30",
-            "hover:bg-primary/10 hover:border-primary/40",
-            "transition-all duration-300 ease-out",
+            "group p-3.5 rounded-full",
+            "bg-card/60 backdrop-blur-md",
+            "border border-border/40",
+            "hover:bg-primary/10 hover:border-primary/50",
+            "transition-all duration-300",
             "hover:scale-105 active:scale-95"
           )}
         >
