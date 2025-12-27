@@ -244,3 +244,45 @@
 .animation-delay-300 { animation-delay: 300ms; }
 .animation-delay-400 { animation-delay: 400ms; }
 .animation-delay-500 { animation-delay: 500ms; }
+
+/* Writing animation for logo text */
+@keyframes write-text {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+}
+
+.animate-write-text {
+  animation: write-text 2s ease-out forwards;
+  animation-delay: 0.3s;
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Cursor animation for writing effect */
+@keyframes write-cursor {
+  0% {
+    left: 0%;
+    opacity: 1;
+  }
+  90% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-write-cursor {
+  animation: write-cursor 2s ease-out forwards;
+  animation-delay: 0.3s;
+}
