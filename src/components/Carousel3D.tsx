@@ -9,6 +9,7 @@ interface Project {
   description: string;
   color: string; // Google Prime color for background
   link: string;
+  isViewAll?: boolean;
 }
 
 // Google Prime Colors
@@ -70,6 +71,15 @@ const projects: Project[] = [
     description: "A modern, responsive portfolio website using React with smooth navigation, reusable components, and a clean UI. Maintained on GitHub with organized commits and clear documentation.",
     color: googleColors[5],
     link: "#",
+  },
+  {
+    id: 7,
+    title: "View All Projects",
+    category: "Portfolio",
+    description: "Explore my complete collection of design and development work across various industries and platforms.",
+    color: googleColors[6],
+    link: "#projects",
+    isViewAll: true,
   },
 ];
 
@@ -261,24 +271,30 @@ export const Carousel3D = () => {
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/20 rounded-full" />
                       </div>
                       
-                      {/* Category initial as large background text */}
-                      <span className="text-6xl font-display font-bold text-white/30 select-none">
-                        {project.category.charAt(0)}
-                      </span>
+                      {/* Category initial or arrow for View All */}
+                      {project.isViewAll ? (
+                        <ExternalLink className="w-12 h-12 text-white/50" />
+                      ) : (
+                        <span className="text-6xl font-display font-bold text-white/30 select-none">
+                          {project.category.charAt(0)}
+                        </span>
+                      )}
                       
                       {/* Category Badge */}
-                      <div className="absolute top-3 left-3 right-3">
-                        <span 
-                          className="inline-block px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider rounded-lg text-white leading-tight"
-                          style={{
-                            background: 'rgba(255,255,255,0.2)',
-                            backdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255,255,255,0.3)',
-                          }}
-                        >
-                          {project.category}
-                        </span>
-                      </div>
+                      {!project.isViewAll && (
+                        <div className="absolute top-3 left-3 right-3">
+                          <span 
+                            className="inline-block px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider rounded-lg text-white leading-tight"
+                            style={{
+                              background: 'rgba(255,255,255,0.2)',
+                              backdropFilter: 'blur(10px)',
+                              border: '1px solid rgba(255,255,255,0.3)',
+                            }}
+                          >
+                            {project.category}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Content - hidden on hover */}
@@ -308,7 +324,7 @@ export const Carousel3D = () => {
                       }}
                     >
                       <span className="text-white/70 text-xs font-medium tracking-wider uppercase">
-                        View Project
+                        {project.isViewAll ? "Explore All" : "View Project"}
                       </span>
                       <span className="text-white font-display font-semibold text-base">
                         {project.title}
