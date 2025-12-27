@@ -26,7 +26,7 @@ const testimonials = [
 ];
 
 export const TestimonialsSection = () => {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,6 +38,28 @@ export const TestimonialsSection = () => {
 
   const handleClick = (index: number) => {
     setActiveIndex(index);
+  };
+
+  // Calculate position on semi-circle arc
+  const getPosition = (index: number, total: number) => {
+    // Offset index based on active to keep active in center
+    const offset = index - activeIndex;
+    const normalizedOffset = ((offset % total) + total) % total;
+    const adjustedOffset = normalizedOffset > total / 2 ? normalizedOffset - total : normalizedOffset;
+    
+    // Arc angle (spread items across ~120 degrees)
+    const angleSpread = 50; // degrees per item
+    const angle = adjustedOffset * angleSpread;
+    const angleRad = (angle * Math.PI) / 180;
+    
+    // Semi-circle radius
+    const radius = 120;
+    
+    // Calculate x,y on arc (arc opens to the right)
+    const x = Math.sin(angleRad) * radius;
+    const y = -Math.cos(angleRad) * radius;
+    
+    return { x, y, angle: adjustedOffset };
   };
 
   return (
@@ -60,70 +82,76 @@ export const TestimonialsSection = () => {
         </div>
 
         {/* Testimonials Layout */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 max-w-5xl mx-auto">
-          {/* Left side - Rotating avatars with connecting line */}
-          <div className="relative flex flex-col items-center">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 max-w-5xl mx-auto">
+          {/* Left side - Semi-circle rotating carousel */}
+          <div className="relative w-72 h-80 flex items-center justify-center">
             {/* Curved connecting line */}
             <svg
-              className="absolute left-1/2 -translate-x-1/2 h-full w-20 pointer-events-none"
-              viewBox="0 0 80 300"
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="-150 -160 300 320"
               fill="none"
-              preserveAspectRatio="none"
             >
               <path
-                d="M40 0 Q60 75 40 150 Q20 225 40 300"
+                d="M 0 -120 
+                   Q 80 -80 100 0 
+                   Q 80 80 0 120"
                 stroke="hsl(var(--border))"
                 strokeWidth="2"
-                strokeDasharray="4 4"
+                strokeDasharray="6 6"
                 fill="none"
               />
             </svg>
 
             {testimonials.map((testimonial, index) => {
+              const { x, y, angle } = getPosition(index, testimonials.length);
               const isActive = index === activeIndex;
-              const distance = Math.abs(index - activeIndex);
+              const absAngle = Math.abs(angle);
 
               return (
                 <div
                   key={index}
-                  className="relative z-10 flex items-center gap-4 cursor-pointer transition-all duration-500"
+                  className="absolute cursor-pointer transition-all duration-700 ease-out"
                   style={{
-                    marginTop: index === 0 ? 0 : "2rem",
-                    transform: isActive ? "scale(1)" : `scale(${1 - distance * 0.15})`,
-                    opacity: isActive ? 1 : 0.5,
+                    transform: `translate(${x}px, ${y}px)`,
+                    zIndex: isActive ? 10 : 5 - absAngle,
                   }}
                   onClick={() => handleClick(index)}
                 >
-                  {/* Avatar */}
+                  {/* Avatar container */}
                   <div
-                    className={`relative rounded-full transition-all duration-500 ${
+                    className={`relative transition-all duration-500 ${
                       isActive
-                        ? "w-16 h-16 ring-2 ring-accent ring-offset-2 ring-offset-background"
-                        : "w-12 h-12"
+                        ? "scale-100"
+                        : "scale-75 opacity-60"
                     }`}
                   >
+                    {/* Avatar */}
                     <div
-                      className={`w-full h-full rounded-full bg-gradient-accent flex items-center justify-center text-accent-foreground font-display font-bold ${
-                        isActive ? "text-xl" : "text-sm"
+                      className={`rounded-full transition-all duration-500 flex items-center justify-center font-display font-bold ${
+                        isActive
+                          ? "w-16 h-16 ring-2 ring-accent ring-offset-2 ring-offset-background bg-gradient-accent text-accent-foreground text-xl"
+                          : "w-12 h-12 bg-muted text-muted-foreground text-sm"
                       }`}
                     >
                       {testimonial.author.charAt(0)}
                     </div>
-                  </div>
 
-                  {/* Name and rating - only show for active */}
-                  <div
-                    className={`transition-all duration-500 ${
-                      isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 absolute"
-                    }`}
-                  >
-                    <div className="font-display font-semibold text-foreground whitespace-nowrap">
-                      {testimonial.author}
-                    </div>
-                    <div className="flex items-center gap-1 text-sm">
-                      <Star className="w-4 h-4 fill-accent text-accent" />
-                      <span className="text-accent font-medium">{testimonial.rating}</span>
-                      <span className="text-muted-foreground">on {testimonial.date}</span>
+                    {/* Name and rating - only show for active */}
+                    <div
+                      className={`absolute left-full ml-4 top-1/2 -translate-y-1/2 whitespace-nowrap transition-all duration-500 ${
+                        isActive
+                          ? "opacity-100 translate-x-0"
+                          : "opacity-0 -translate-x-4 pointer-events-none"
+                      }`}
+                    >
+                      <div className="font-display font-semibold text-foreground">
+                        {testimonial.author}
+                      </div>
+                      <div className="flex items-center gap-1 text-sm">
+                        <Star className="w-4 h-4 fill-accent text-accent" />
+                        <span className="text-accent font-medium">{testimonial.rating}</span>
+                        <span className="text-muted-foreground text-xs">on {testimonial.date}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -152,30 +180,11 @@ export const TestimonialsSection = () => {
               </div>
 
               {/* Role */}
-              <div
-                className="mt-8 text-muted-foreground transition-all duration-500"
-                key={activeIndex}
-              >
+              <div className="mt-8 text-muted-foreground transition-all duration-500">
                 — {testimonials[activeIndex].role}
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Navigation dots */}
-        <div className="flex justify-center gap-2 mt-12">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleClick(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? "bg-accent w-6"
-                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              }`}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
         </div>
       </div>
     </section>
