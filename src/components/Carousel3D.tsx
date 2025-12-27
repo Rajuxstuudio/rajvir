@@ -260,28 +260,28 @@ export const Carousel3D = () => {
                     />
 
                     {/* Project Color Background with Icon */}
-                    <div 
-                      className="relative h-44 overflow-hidden flex items-center justify-center"
-                      style={{ background: project.color }}
-                    >
-                      {/* Decorative pattern */}
-                      <div className="absolute inset-0 opacity-20">
-                        <div className="absolute top-4 left-4 w-16 h-16 border-2 border-white/30 rounded-full" />
-                        <div className="absolute bottom-4 right-4 w-12 h-12 border-2 border-white/30 rounded-lg rotate-45" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/20 rounded-full" />
-                      </div>
-                      
-                      {/* Category initial or arrow for View All */}
-                      {project.isViewAll ? (
+                    {project.isViewAll ? (
+                      <div className="relative h-44 overflow-hidden flex items-center justify-center bg-white/5 border-b border-white/10">
                         <ExternalLink className="w-12 h-12 text-white/50" />
-                      ) : (
+                      </div>
+                    ) : (
+                      <div 
+                        className="relative h-44 overflow-hidden flex items-center justify-center"
+                        style={{ background: project.color }}
+                      >
+                        {/* Decorative pattern */}
+                        <div className="absolute inset-0 opacity-20">
+                          <div className="absolute top-4 left-4 w-16 h-16 border-2 border-white/30 rounded-full" />
+                          <div className="absolute bottom-4 right-4 w-12 h-12 border-2 border-white/30 rounded-lg rotate-45" />
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/20 rounded-full" />
+                        </div>
+                        
+                        {/* Category initial */}
                         <span className="text-6xl font-display font-bold text-white/30 select-none">
                           {project.category.charAt(0)}
                         </span>
-                      )}
-                      
-                      {/* Category Badge */}
-                      {!project.isViewAll && (
+                        
+                        {/* Category Badge */}
                         <div className="absolute top-3 left-3 right-3">
                           <span 
                             className="inline-block px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wider rounded-lg text-white leading-tight"
@@ -294,8 +294,8 @@ export const Carousel3D = () => {
                             {project.category}
                           </span>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
 
                     {/* Content - hidden on hover */}
                     <div 
