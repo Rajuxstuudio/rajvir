@@ -1,5 +1,6 @@
 import { ArrowDown, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
+import { ToolsStrip } from "./ToolsStrip";
 
 export const HeroSection = () => {
   return (
@@ -78,8 +79,11 @@ export const HeroSection = () => {
           ))}
         </div>
 
+        {/* Tools Strip */}
+        <ToolsStrip />
+
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="mt-12 lg:mt-16 animate-bounce">
           <a href="#projects" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
             <span className="text-xs uppercase tracking-widest">Scroll</span>
             <ArrowDown className="w-4 h-4" />
