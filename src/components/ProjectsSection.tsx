@@ -19,7 +19,7 @@ export const ProjectsSection = () => {
             Portfolio
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4 lg:mb-6">
-            Featured Projects
+            My Work
           </h2>
           <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             A curated selection of my best work. Click to explore each project in detail.

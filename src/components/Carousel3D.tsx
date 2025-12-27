@@ -7,9 +7,20 @@ interface Project {
   title: string;
   category: string;
   description: string;
-  image: string;
+  color: string; // Google Prime color for background
   link: string;
 }
+
+// Google Prime Colors
+const googleColors = [
+  "linear-gradient(135deg, #4285F4 0%, #2B5CBC 100%)", // Blue
+  "linear-gradient(135deg, #EA4335 0%, #C5221F 100%)", // Red
+  "linear-gradient(135deg, #FBBC04 0%, #E8A400 100%)", // Yellow
+  "linear-gradient(135deg, #34A853 0%, #1E8E3E 100%)", // Green
+  "linear-gradient(135deg, #4285F4 0%, #34A853 100%)", // Blue to Green
+  "linear-gradient(135deg, #EA4335 0%, #FBBC04 100%)", // Red to Yellow
+  "linear-gradient(135deg, #34A853 0%, #4285F4 100%)", // Green to Blue
+];
 
 const projects: Project[] = [
   {
@@ -17,7 +28,7 @@ const projects: Project[] = [
     title: "Amrutam Ayurveda",
     category: "UI/UX Design",
     description: "A holistic wellness platform blending ancient Ayurvedic wisdom with modern digital experiences.",
-    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=400&fit=crop",
+    color: googleColors[0],
     link: "#",
   },
   {
@@ -25,7 +36,7 @@ const projects: Project[] = [
     title: "Fintech Dashboard",
     category: "Product Design",
     description: "Intuitive financial analytics dashboard with real-time data visualization and insights.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    color: googleColors[1],
     link: "#",
   },
   {
@@ -33,7 +44,7 @@ const projects: Project[] = [
     title: "E-Commerce App",
     category: "Mobile Design",
     description: "Seamless shopping experience with personalized recommendations and one-tap checkout.",
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop",
+    color: googleColors[2],
     link: "#",
   },
   {
@@ -41,7 +52,7 @@ const projects: Project[] = [
     title: "Brand Identity",
     category: "Identity Design",
     description: "Complete brand overhaul including logo, packaging, and visual identity system.",
-    image: "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=600&h=400&fit=crop",
+    color: googleColors[3],
     link: "#",
   },
   {
@@ -49,7 +60,7 @@ const projects: Project[] = [
     title: "SaaS Platform",
     category: "Web Development",
     description: "Scalable enterprise platform with robust authentication and analytics.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    color: googleColors[4],
     link: "#",
   },
   {
@@ -57,7 +68,7 @@ const projects: Project[] = [
     title: "Analytics Widget",
     category: "Dashboard Design",
     description: "Real-time metrics and KPI tracking with beautiful data visualization.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    color: googleColors[5],
     link: "#",
   },
   {
@@ -65,7 +76,7 @@ const projects: Project[] = [
     title: "Mobile Banking",
     category: "App Design",
     description: "Secure and intuitive mobile banking experience with biometric authentication.",
-    image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&h=400&fit=crop",
+    color: googleColors[6],
     link: "#",
   },
 ];
@@ -246,27 +257,31 @@ export const Carousel3D = () => {
                       }}
                     />
 
-                    {/* Project Image */}
-                    <div className="relative h-44 overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className={cn(
-                          "w-full h-full object-cover transition-transform duration-700",
-                          isHovered && "scale-110"
-                        )}
-                        draggable={false}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    {/* Project Color Background with Icon */}
+                    <div 
+                      className="relative h-44 overflow-hidden flex items-center justify-center"
+                      style={{ background: project.color }}
+                    >
+                      {/* Decorative pattern */}
+                      <div className="absolute inset-0 opacity-20">
+                        <div className="absolute top-4 left-4 w-16 h-16 border-2 border-white/30 rounded-full" />
+                        <div className="absolute bottom-4 right-4 w-12 h-12 border-2 border-white/30 rounded-lg rotate-45" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/20 rounded-full" />
+                      </div>
+                      
+                      {/* Category initial as large background text */}
+                      <span className="text-6xl font-display font-bold text-white/30 select-none">
+                        {project.category.charAt(0)}
+                      </span>
                       
                       {/* Category Badge */}
                       <div className="absolute top-3 left-3">
                         <span 
                           className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider rounded-full text-white"
                           style={{
-                            background: 'rgba(255,255,255,0.15)',
+                            background: 'rgba(255,255,255,0.2)',
                             backdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255,255,255,0.2)',
+                            border: '1px solid rgba(255,255,255,0.3)',
                           }}
                         >
                           {project.category}
@@ -274,8 +289,13 @@ export const Carousel3D = () => {
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-5 space-y-2 relative z-10">
+                    {/* Content - visible when not hovered */}
+                    <div 
+                      className={cn(
+                        "p-5 space-y-2 relative z-10 transition-all duration-300",
+                        isHovered ? "opacity-0 blur-sm" : "opacity-100 blur-0"
+                      )}
+                    >
                       <h3 className="text-lg font-display font-semibold text-white tracking-tight line-clamp-1">
                         {project.title}
                       </h3>
@@ -284,34 +304,30 @@ export const Carousel3D = () => {
                       </p>
                     </div>
 
-                    {/* Hover Overlay with Message */}
+                    {/* Hover Overlay - Full Cover with Blur */}
                     <div 
                       className={cn(
-                        "absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl",
-                        "transition-opacity duration-400 ease-out",
+                        "absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-3xl",
+                        "transition-all duration-400 ease-out",
                         isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}
                       style={{
-                        background: 'linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.7) 100%)',
-                        backdropFilter: 'blur(10px)',
+                        background: 'rgba(0, 0, 0, 0.85)',
+                        backdropFilter: 'blur(20px)',
                       }}
                     >
                       <div 
-                        className="w-14 h-14 rounded-full flex items-center justify-center"
+                        className="w-16 h-16 rounded-full flex items-center justify-center"
                         style={{
-                          background: 'rgba(255,255,255,0.2)',
-                          backdropFilter: 'blur(10px)',
-                          border: '1px solid rgba(255,255,255,0.3)',
+                          background: project.color,
+                          boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
                         }}
                       >
-                        <ExternalLink className="w-6 h-6 text-white" />
+                        <ExternalLink className="w-7 h-7 text-white" />
                       </div>
-                      <span className="text-white font-display font-semibold text-lg">
+                      <span className="text-white font-display font-bold text-xl">
                         View Project
                       </span>
-                      <p className="text-white/80 text-sm text-center px-4">
-                        Click to explore this project
-                      </p>
                     </div>
                   </div>
                 </div>
