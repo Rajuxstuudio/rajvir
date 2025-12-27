@@ -1,7 +1,9 @@
-import { ArrowDown, Sparkles } from "lucide-react";
+import { ArrowDown, Sparkles, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { ToolsStrip } from "./ToolsStrip";
 import { AnimatedCounter } from "./AnimatedCounter";
+import profileImage from "@/assets/profile.png";
+
 export const HeroSection = () => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden py-16">
@@ -24,8 +26,32 @@ export const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 text-center">
+        {/* Profile Image with Resume Button */}
+        <div className="relative inline-block mb-8 animate-fade-in-up">
+          <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-violet-500 via-fuchsia-500 to-purple-600 p-1 shadow-[0_6px_0_0_rgba(109,40,217,0.8),0_10px_20px_rgba(139,92,246,0.4)]">
+            <div className="relative rounded-xl overflow-hidden">
+              <img 
+                src={profileImage} 
+                alt="Rajvir" 
+                className="w-32 h-32 sm:w-40 sm:h-40 object-cover"
+              />
+              <a
+                href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-violet-500/90 via-fuchsia-500/90 to-purple-600/90 opacity-0 hover:opacity-100 transition-opacity duration-300"
+              >
+                <div className="flex flex-col items-center gap-2 text-white font-semibold">
+                  <FileText className="w-8 h-8" />
+                  <span className="text-sm">Resume</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 lg:mb-8 animate-fade-in-up">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 lg:mb-8 animate-fade-in-up animation-delay-100">
           <Sparkles className="w-4 h-4 text-primary" />
           <span className="text-sm font-medium text-foreground">Open to Work</span>
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
