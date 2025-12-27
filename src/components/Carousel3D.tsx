@@ -210,27 +210,29 @@ export const Carousel3D = () => {
                   {/* 3D Glass Card */}
                   <div 
                     className={cn(
-                      "w-full h-full rounded-2xl overflow-hidden",
+                      "w-full h-full rounded-3xl overflow-hidden",
                       "transition-all duration-500 ease-out",
                       isActive && "z-10",
                       isHovered && "scale-105"
                     )}
                     style={{
-                      background: 'linear-gradient(145deg, hsl(220 15% 12% / 0.9) 0%, hsl(220 15% 8% / 0.95) 100%)',
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%)',
                       backdropFilter: 'blur(20px)',
                       WebkitBackdropFilter: 'blur(20px)',
                       border: isActive 
-                        ? '1px solid hsl(var(--primary) / 0.4)' 
-                        : '1px solid hsl(220 10% 20% / 0.6)',
+                        ? '1px solid hsl(var(--primary) / 0.5)' 
+                        : '1px solid rgba(255,255,255,0.15)',
                       boxShadow: isActive 
                         ? `
-                          0 8px 32px rgba(0,0,0,0.5),
-                          0 0 60px -10px hsl(var(--primary) / 0.3),
-                          inset 0 1px 0 rgba(255,255,255,0.08)
+                          0 8px 32px rgba(0,0,0,0.4),
+                          0 0 60px -10px hsl(var(--primary) / 0.4),
+                          inset 0 1px 0 rgba(255,255,255,0.2),
+                          inset 0 -1px 0 rgba(0,0,0,0.1)
                         ` 
                         : `
-                          0 8px 32px rgba(0,0,0,0.4),
-                          inset 0 1px 0 rgba(255,255,255,0.05)
+                          0 8px 32px rgba(0,0,0,0.3),
+                          inset 0 1px 0 rgba(255,255,255,0.15),
+                          inset 0 -1px 0 rgba(0,0,0,0.1)
                         `,
                       transformStyle: 'preserve-3d',
                     }}
@@ -239,7 +241,7 @@ export const Carousel3D = () => {
                     <div 
                       className="absolute inset-0 pointer-events-none"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%, transparent 100%)',
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, transparent 100%)',
                         borderRadius: 'inherit',
                       }}
                     />
@@ -285,27 +287,30 @@ export const Carousel3D = () => {
                     {/* Hover Overlay with Message */}
                     <div 
                       className={cn(
-                        "absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl",
-                        "transition-opacity duration-300 ease-out",
+                        "absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl",
+                        "transition-opacity duration-400 ease-out",
                         isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}
                       style={{
-                        background: 'linear-gradient(135deg, hsl(var(--primary) / 0.95) 0%, hsl(200 80% 45% / 0.9) 100%)',
+                        background: 'linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.7) 100%)',
+                        backdropFilter: 'blur(10px)',
                       }}
                     >
                       <div 
-                        className="w-12 h-12 rounded-full flex items-center justify-center border border-white/20"
+                        className="w-14 h-14 rounded-full flex items-center justify-center"
                         style={{
-                          background: 'rgba(255,255,255,0.15)',
+                          background: 'rgba(255,255,255,0.2)',
+                          backdropFilter: 'blur(10px)',
+                          border: '1px solid rgba(255,255,255,0.3)',
                         }}
                       >
-                        <ExternalLink className="w-5 h-5 text-white" />
+                        <ExternalLink className="w-6 h-6 text-white" />
                       </div>
-                      <span className="text-white font-display font-semibold text-base">
+                      <span className="text-white font-display font-semibold text-lg">
                         View Project
                       </span>
-                      <p className="text-white/70 text-sm text-center px-4">
-                        Click to explore
+                      <p className="text-white/80 text-sm text-center px-4">
+                        Click to explore this project
                       </p>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import { FileText } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -11,9 +11,10 @@ export const Footer = () => {
           </div>
 
           {/* Copyright */}
-          <div className="text-sm text-muted-foreground text-center">
-            <p>© Rajvir Portfolio 2025. All rights reserved.</p>
-            <p className="text-xs mt-1 text-muted-foreground/60">Site created with Framer</p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span>© 2025 Rajvir Portfolio. Made with</span>
+            <Heart className="w-4 h-4 text-primary fill-primary" />
+            <span>in India</span>
           </div>
 
           {/* Resume link */}
@@ -21,10 +22,9 @@ export const Footer = () => {
             href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
-            <FileText className="w-4 h-4" />
-            View Resume
+            View Resume →
           </a>
         </div>
       </div>
