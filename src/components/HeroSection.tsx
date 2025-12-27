@@ -42,12 +42,12 @@ export const HeroSection = () => {
           Product UX/UI Designer
         </p>
 
-        <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto mb-10 lg:mb-12 animate-fade-in-up animation-delay-300 leading-relaxed">
+        <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto mb-10 lg:mb-10 animate-fade-in-up animation-delay-300 leading-relaxed">
           Crafting purposeful pixels, animations, and flows that tell compelling stories and drive engagement.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-12 lg:mb-12 animate-fade-in-up animation-delay-400">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6 mb-10 lg:mb-10 animate-fade-in-up animation-delay-400">
           <Button variant="hero" size="xl" asChild>
             <a href="#projects">View My Work</a>
           </Button>
