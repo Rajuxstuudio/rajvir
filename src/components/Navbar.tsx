@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
+import profileAvatar from "@/assets/profile-avatar.png";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -53,17 +53,15 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* Profile Avatar */}
           <div className="hidden md:block">
-            <Button variant="hero" size="default" asChild>
-              <a
-                href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Resume
-              </a>
-            </Button>
+            <div className="w-10 h-10 rounded-full bg-primary overflow-hidden">
+              <img 
+                src={profileAvatar} 
+                alt="Profile"
+                className="w-full h-full object-cover object-top mix-blend-luminosity"
+              />
+            </div>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -93,15 +91,13 @@ export const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <Button variant="hero" size="lg" className="mt-4" asChild>
-                <a
-                  href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Download Resume
-                </a>
-              </Button>
+              <div className="w-12 h-12 rounded-full bg-primary overflow-hidden mt-4">
+                <img 
+                  src={profileAvatar} 
+                  alt="Profile"
+                  className="w-full h-full object-cover object-top mix-blend-luminosity"
+                />
+              </div>
             </div>
           </div>
         )}
