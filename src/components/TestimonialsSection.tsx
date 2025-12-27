@@ -127,7 +127,7 @@ export const TestimonialsSection = () => {
           <div className="relative px-2">
             <Quote className="w-8 h-8 text-accent/40 mb-4 mx-auto" />
             
-            <div className="relative min-h-[140px]">
+            <div className="relative min-h-[180px]">
               {testimonials.map((testimonial, index) => (
                 <p
                   key={index}
@@ -171,7 +171,7 @@ export const TestimonialsSection = () => {
             <div className="relative">
               <Quote className="w-8 h-8 lg:w-10 lg:h-10 text-accent/40 mb-4 lg:mb-6" />
               
-              <div className="relative min-h-[100px] lg:min-h-[120px]">
+              <div className="relative min-h-[140px] lg:min-h-[160px]">
                 {testimonials.map((testimonial, index) => (
                   <p
                     key={index}
