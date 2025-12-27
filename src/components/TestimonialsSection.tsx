@@ -55,8 +55,8 @@ export const TestimonialsSection = () => {
     // Semi-circle radius
     const radius = 100;
     
-    // Calculate x,y on vertical arc (arc curves to the right, items move vertically)
-    const x = Math.sin(Math.abs(angleRad)) * radius * 0.3;
+    // Calculate x,y on vertical arc (arc curves to the left, items move vertically)
+    const x = -Math.sin(Math.abs(angleRad)) * radius * 0.3;
     const y = Math.sin(angleRad) * radius;
     
     return { x, y, angle: adjustedOffset };
@@ -81,19 +81,46 @@ export const TestimonialsSection = () => {
           </p>
         </div>
 
-        {/* Testimonials Layout */}
+        {/* Testimonials Layout - Quote left, Carousel right */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 max-w-5xl mx-auto">
-          {/* Left side - Semi-circle rotating carousel */}
-          <div className="relative w-64 h-72 flex items-center justify-center">
-            {/* Curved connecting line - vertical */}
+          {/* Left side - Quote */}
+          <div className="flex-1 max-w-xl order-2 md:order-1">
+            <div className="relative">
+              <Quote className="w-10 h-10 text-accent/40 mb-6" />
+              
+              <div className="relative min-h-[120px]">
+                {testimonials.map((testimonial, index) => (
+                  <p
+                    key={index}
+                    className={`text-xl md:text-2xl leading-relaxed text-foreground/90 font-light italic transition-all duration-500 absolute inset-0 ${
+                      index === activeIndex
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4 pointer-events-none"
+                    }`}
+                  >
+                    {testimonial.quote}
+                  </p>
+                ))}
+              </div>
+
+              {/* Role */}
+              <div className="mt-8 text-muted-foreground transition-all duration-500">
+                — {testimonials[activeIndex].role}
+              </div>
+            </div>
+          </div>
+
+          {/* Right side - Semi-circle rotating carousel */}
+          <div className="relative w-64 h-72 flex items-center justify-center order-1 md:order-2">
+            {/* Curved connecting line - vertical, curves to the left */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none"
               viewBox="-130 -140 260 280"
               fill="none"
             >
               <path
-                d="M 30 -100 
-                   Q 50 0 30 100"
+                d="M -30 -100 
+                   Q -50 0 -30 100"
                 stroke="hsl(var(--border))"
                 strokeWidth="2"
                 strokeDasharray="6 6"
@@ -135,18 +162,18 @@ export const TestimonialsSection = () => {
                       {testimonial.author.charAt(0)}
                     </div>
 
-                    {/* Name and rating - only show for active */}
+                    {/* Name and rating - show on left for right-side carousel */}
                     <div
-                      className={`absolute left-full ml-4 top-1/2 -translate-y-1/2 whitespace-nowrap transition-all duration-500 ${
+                      className={`absolute right-full mr-4 top-1/2 -translate-y-1/2 whitespace-nowrap text-right transition-all duration-500 ${
                         isActive
                           ? "opacity-100 translate-x-0"
-                          : "opacity-0 -translate-x-4 pointer-events-none"
+                          : "opacity-0 translate-x-4 pointer-events-none"
                       }`}
                     >
                       <div className="font-display font-semibold text-foreground">
                         {testimonial.author}
                       </div>
-                      <div className="flex items-center gap-1 text-sm">
+                      <div className="flex items-center justify-end gap-1 text-sm">
                         <Star className="w-4 h-4 fill-accent text-accent" />
                         <span className="text-accent font-medium">{testimonial.rating}</span>
                         <span className="text-muted-foreground text-xs">on {testimonial.date}</span>
@@ -156,33 +183,6 @@ export const TestimonialsSection = () => {
                 </div>
               );
             })}
-          </div>
-
-          {/* Right side - Quote */}
-          <div className="flex-1 max-w-xl">
-            <div className="relative">
-              <Quote className="w-10 h-10 text-accent/40 mb-6" />
-              
-              <div className="relative min-h-[120px]">
-                {testimonials.map((testimonial, index) => (
-                  <p
-                    key={index}
-                    className={`text-xl md:text-2xl leading-relaxed text-foreground/90 font-light italic transition-all duration-500 absolute inset-0 ${
-                      index === activeIndex
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-4 pointer-events-none"
-                    }`}
-                  >
-                    {testimonial.quote}
-                  </p>
-                ))}
-              </div>
-
-              {/* Role */}
-              <div className="mt-8 text-muted-foreground transition-all duration-500">
-                — {testimonials[activeIndex].role}
-              </div>
-            </div>
           </div>
         </div>
       </div>
