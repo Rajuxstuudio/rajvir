@@ -1,11 +1,13 @@
-import { Palette, Box, Code, Fingerprint } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Palette, Box, Code, Fingerprint, ArrowRight } from "lucide-react";
+import { Button } from "./ui/button";
 
 const services = [
   {
     icon: Palette,
     title: "UI/UX Design",
     description: "Crafting user-centric interfaces grounded in usability, logic, and design fundamentals.",
+    stat: "50+",
+    statLabel: "Projects Delivered",
   },
   {
     icon: Box,
@@ -25,6 +27,11 @@ const services = [
 ];
 
 export const ServicesSection = () => {
+  const IconUX = services[0].icon;
+  const IconProduct = services[1].icon;
+  const IconWeb = services[2].icon;
+  const IconIdentity = services[3].icon;
+
   return (
     <section className="py-24 relative">
       <div className="container mx-auto px-6">
@@ -41,35 +48,101 @@ export const ServicesSection = () => {
           </p>
         </div>
 
-        {/* Services grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className={cn(
-                "group relative p-8 rounded-2xl bg-gradient-card border border-border/50",
-                "hover:border-primary/50 hover:glow transition-all duration-500",
-                "animate-fade-in-up"
-              )}
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
-                <service.icon className="w-7 h-7 text-primary" />
+        {/* Bento Grid Layout */}
+        <div className="grid md:grid-cols-12 gap-6 max-w-6xl mx-auto">
+          {/* Large Left Card - UI/UX Design */}
+          <div
+            className="md:col-span-5 row-span-2 p-8 rounded-3xl glass border border-border/30 animate-fade-in-up group hover:border-accent/50 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)] transition-all duration-500"
+            style={{ animationDelay: "0ms" }}
+          >
+            {/* Stat */}
+            <div className="mb-6">
+              <div className="text-5xl md:text-6xl font-display font-bold text-foreground mb-1">
+                {services[0].stat}
               </div>
+              <div className="text-muted-foreground">
+                {services[0].statLabel}
+              </div>
+            </div>
 
-              {/* Content */}
-              <h3 className="text-xl font-display font-semibold text-foreground mb-3">
-                {service.title}
+            {/* Icon */}
+            <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors duration-300">
+              <IconUX className="w-7 h-7 text-accent" />
+            </div>
+
+            {/* Content */}
+            <h3 className="text-2xl font-display font-semibold text-foreground mb-3">
+              {services[0].title}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {services[0].description}
+            </p>
+          </div>
+
+          {/* Top Right Card - Product Design */}
+          <div
+            className="md:col-span-7 p-6 rounded-3xl glass border border-border/30 animate-fade-in-up group hover:border-accent/50 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)] transition-all duration-500"
+            style={{ animationDelay: "100ms" }}
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">
+                <IconProduct className="w-6 h-6 text-accent" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-display font-semibold text-foreground mb-2">
+                  {services[1].title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {services[1].description}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Right - Two cards side by side */}
+          <div className="md:col-span-7 grid md:grid-cols-2 gap-6">
+            {/* Web Development */}
+            <div
+              className="p-6 rounded-3xl glass border border-border/30 animate-fade-in-up group hover:border-accent/50 hover:shadow-[0_0_30px_hsl(var(--accent)/0.2)] transition-all duration-500"
+              style={{ animationDelay: "200ms" }}
+            >
+              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors duration-300">
+                <IconWeb className="w-6 h-6 text-accent" />
+              </div>
+              <h3 className="text-lg font-display font-semibold text-foreground mb-2">
+                {services[2].title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                {service.description}
+                {services[2].description}
               </p>
-
-              {/* Hover effect line */}
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-primary rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-          ))}
+
+            {/* View All Services Card */}
+            <div
+              className="p-6 rounded-3xl bg-card/90 border border-border/50 animate-fade-in-up flex flex-col justify-between backdrop-blur-xl group hover:border-accent/50 hover:shadow-[0_0_40px_hsl(var(--accent)/0.3)] transition-all duration-500"
+              style={{ animationDelay: "300ms" }}
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors duration-300">
+                  <IconIdentity className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="text-lg font-display font-semibold text-foreground mb-2">
+                  {services[3].title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  {services[3].description}
+                </p>
+              </div>
+
+              <Button
+                variant="outline"
+                className="w-full border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 group-hover:shadow-[0_0_20px_hsl(var(--accent)/0.4)]"
+              >
+                View All Services
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
