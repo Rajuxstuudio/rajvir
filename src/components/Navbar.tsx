@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { AnimatedLogo } from "./AnimatedLogo";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -37,10 +38,7 @@ export const Navbar = () => {
           )}
         >
           {/* Logo */}
-          <a href="#" className="font-display text-2xl font-bold">
-            <span className="text-gradient">R</span>
-            <span className="text-foreground">ajvir</span>
-          </a>
+          <AnimatedLogo />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
