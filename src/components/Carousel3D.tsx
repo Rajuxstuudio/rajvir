@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Project {
@@ -86,13 +86,9 @@ export const Carousel3D = () => {
     setRotation((prev) => prev - anglePerItem);
   }, [anglePerItem]);
 
-  const prevSlide = useCallback(() => {
-    setRotation((prev) => prev + anglePerItem);
-  }, [anglePerItem]);
-
   useEffect(() => {
     if (!isAutoPlaying) return;
-    const interval = setInterval(nextSlide, 4000);
+    const interval = setInterval(nextSlide, 3000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
@@ -127,6 +123,7 @@ export const Carousel3D = () => {
   };
 
   const activeIndex = getActiveIndex();
+  const isAnyHovered = hoveredIndex !== null;
 
   return (
     <div className="relative w-full py-16">
@@ -143,6 +140,7 @@ export const Carousel3D = () => {
         onMouseLeave={() => {
           handleDragEnd();
           setIsAutoPlaying(true);
+          setHoveredIndex(null);
         }}
         onMouseDown={handleDragStart}
         onMouseMove={handleDragMove}
@@ -174,8 +172,12 @@ export const Carousel3D = () => {
               // Calculate card position relative to front
               const relativeAngle = ((angle + rotation) % 360 + 360) % 360;
               const isBackSide = relativeAngle > 90 && relativeAngle < 270;
-              const opacity = isBackSide ? 0.4 : 1;
+              const baseOpacity = isBackSide ? 0.4 : 1;
               const scale = isBackSide ? 0.85 : 1;
+              
+              // Apply blur to non-hovered cards when any card is hovered
+              const shouldBlur = isAnyHovered && !isHovered;
+              const opacity = shouldBlur ? 0.3 : baseOpacity;
               
               return (
                 <div
@@ -189,7 +191,10 @@ export const Carousel3D = () => {
                     transform: `rotateY(${angle}deg) translateZ(${radius}px) scale(${scale})`,
                     transformStyle: 'preserve-3d',
                     opacity,
-                    transition: isDragging ? 'opacity 0.2s' : 'opacity 0.5s, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                    filter: shouldBlur ? 'blur(8px)' : 'blur(0px)',
+                    transition: isDragging 
+                      ? 'opacity 0.2s, filter 0.3s' 
+                      : 'opacity 0.5s, filter 0.3s, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                   }}
                   onClick={() => {
                     if (isActive) {
@@ -208,7 +213,7 @@ export const Carousel3D = () => {
                       "w-full h-full rounded-3xl overflow-hidden",
                       "transition-all duration-500 ease-out",
                       isActive && "z-10",
-                      isHovered && isActive && "scale-105"
+                      isHovered && "scale-105"
                     )}
                     style={{
                       background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%)',
@@ -248,7 +253,7 @@ export const Carousel3D = () => {
                         alt={project.title}
                         className={cn(
                           "w-full h-full object-cover transition-transform duration-700",
-                          isHovered && isActive && "scale-110"
+                          isHovered && "scale-110"
                         )}
                         draggable={false}
                       />
@@ -279,12 +284,12 @@ export const Carousel3D = () => {
                       </p>
                     </div>
 
-                    {/* Hover Overlay */}
+                    {/* Hover Overlay with Message */}
                     <div 
                       className={cn(
                         "absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-3xl",
                         "transition-opacity duration-400 ease-out",
-                        isHovered && isActive ? "opacity-100" : "opacity-0 pointer-events-none"
+                        isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
                       )}
                       style={{
                         background: 'linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.7) 100%)',
@@ -304,6 +309,9 @@ export const Carousel3D = () => {
                       <span className="text-white font-display font-semibold text-lg">
                         View Project
                       </span>
+                      <p className="text-white/80 text-sm text-center px-4">
+                        Click to explore this project
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -311,57 +319,6 @@ export const Carousel3D = () => {
             })}
           </div>
         </div>
-      </div>
-
-      {/* Navigation Controls */}
-      <div className="flex items-center justify-center gap-6 mt-8">
-        <button
-          onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-          className={cn(
-            "group p-4 rounded-full",
-            "transition-all duration-300",
-            "hover:scale-110 active:scale-95"
-          )}
-          style={{
-            background: 'rgba(255,255,255,0.1)',
-            backdropFilter: 'blur(15px)',
-            border: '1px solid rgba(255,255,255,0.2)',
-          }}
-        >
-          <ChevronLeft className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
-        </button>
-
-        {/* Progress Indicators */}
-        <div className="flex gap-2">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setRotation(-index * anglePerItem)}
-              className={cn(
-                "h-2 rounded-full transition-all duration-500 ease-out",
-                index === activeIndex 
-                  ? "w-8 bg-primary shadow-lg shadow-primary/50" 
-                  : "w-2 bg-white/20 hover:bg-white/40"
-              )}
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-          className={cn(
-            "group p-4 rounded-full",
-            "transition-all duration-300",
-            "hover:scale-110 active:scale-95"
-          )}
-          style={{
-            background: 'rgba(255,255,255,0.1)',
-            backdropFilter: 'blur(15px)',
-            border: '1px solid rgba(255,255,255,0.2)',
-          }}
-        >
-          <ChevronRight className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
-        </button>
       </div>
     </div>
   );
