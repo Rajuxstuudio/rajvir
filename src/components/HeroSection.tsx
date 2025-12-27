@@ -1,10 +1,8 @@
 import { ArrowDown, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
 import { ToolsStrip } from "./ToolsStrip";
-
 export const HeroSection = () => {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-dark" />
       
@@ -13,17 +11,14 @@ export const HeroSection = () => {
       <div className="absolute bottom-20 right-20 w-96 h-96 rounded-full bg-accent/5 blur-[120px] animate-float animation-delay-300" />
       
       {/* Grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), 
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+      backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), 
                            linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-          backgroundSize: "100px 100px"
-        }}
-      />
+      backgroundSize: "100px 100px"
+    }} />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center">
+      <div className="relative z-10 container mx-auto lg:px-12 text-center px-[46px]">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 lg:mb-12 animate-fade-in-up">
           <Sparkles className="w-4 h-4 text-primary" />
@@ -52,11 +47,7 @@ export const HeroSection = () => {
             <a href="#projects">View My Work</a>
           </Button>
           <Button variant="glass" size="xl" asChild>
-            <a 
-              href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
+            <a href="https://drive.google.com/file/d/1HtAW7Grsp5yHEIstNiU7uHrGJe699qy3/view" target="_blank" rel="noopener noreferrer">
               Download Resume
             </a>
           </Button>
@@ -64,19 +55,24 @@ export const HeroSection = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-12 max-w-4xl mx-auto animate-fade-in-up animation-delay-500">
-          {[
-            { value: "20+", label: "Years Experience" },
-            { value: "80", label: "Happy Clients" },
-            { value: "72+", label: "Projects Completed" },
-            { value: "72+", label: "Templates Created" },
-          ].map((stat, index) => (
-            <div key={index} className="text-center p-4 lg:p-6">
+          {[{
+          value: "20+",
+          label: "Years Experience"
+        }, {
+          value: "80",
+          label: "Happy Clients"
+        }, {
+          value: "72+",
+          label: "Projects Completed"
+        }, {
+          value: "72+",
+          label: "Templates Created"
+        }].map((stat, index) => <div key={index} className="text-center p-4 lg:p-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gradient mb-2">
                 {stat.value}
               </div>
               <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
+            </div>)}
         </div>
 
         {/* Tools Strip */}
@@ -90,6 +86,5 @@ export const HeroSection = () => {
           </a>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
