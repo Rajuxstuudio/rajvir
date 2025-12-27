@@ -4,10 +4,10 @@ import { Button } from "./ui/button";
 const services = [
   {
     icon: Palette,
-    title: "UI/UX Design",
+    title: "UX/UI Design",
     description: "Crafting user-centric interfaces grounded in usability, logic, and design fundamentals.",
-    stat: "50+",
-    statLabel: "Projects Delivered",
+    stat: "12",
+    statLabel: "Projects",
   },
   {
     icon: Box,

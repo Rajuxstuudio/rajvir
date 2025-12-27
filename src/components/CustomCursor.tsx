@@ -102,26 +102,56 @@ export const CustomCursor = () => {
         }}
       />
 
-      {/* Main cursor dot */}
+      {/* Main cursor - switches between dot and dotted circles on click */}
       <div
         ref={cursorRef}
         className={`fixed pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-all duration-150 ${
           isHovering ? "w-6 h-6" : "w-4 h-4"
-        } ${isClicking ? "scale-50" : "scale-100"}`}
+        }`}
         style={{
-          background: "conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b)",
+          background: isClicking ? "transparent" : "conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b)",
           borderRadius: "50%",
-          boxShadow: "0 0 20px rgba(255, 107, 107, 0.5), 0 0 40px rgba(72, 219, 251, 0.3)",
+          boxShadow: isClicking ? "none" : "0 0 20px rgba(255, 107, 107, 0.5), 0 0 40px rgba(72, 219, 251, 0.3)",
         }}
       >
-        {/* Inner glow */}
-        <div
-          className="absolute inset-0 rounded-full animate-spin"
-          style={{
-            background: "conic-gradient(from 180deg, transparent, rgba(255,255,255,0.8), transparent)",
-            animationDuration: "2s",
-          }}
-        />
+        {/* Inner glow - hidden when clicking */}
+        {!isClicking && (
+          <div
+            className="absolute inset-0 rounded-full animate-spin"
+            style={{
+              background: "conic-gradient(from 180deg, transparent, rgba(255,255,255,0.8), transparent)",
+              animationDuration: "2s",
+            }}
+          />
+        )}
+        
+        {/* Dotted circles on click */}
+        {isClicking && (
+          <>
+            <div
+              className="absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-8 h-8 rounded-full animate-spin"
+              style={{
+                border: "2px dashed #ff6b6b",
+                animationDuration: "1s",
+              }}
+            />
+            <div
+              className="absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-14 h-14 rounded-full animate-spin"
+              style={{
+                border: "2px dashed #48dbfb",
+                animationDuration: "1.5s",
+                animationDirection: "reverse",
+              }}
+            />
+            <div
+              className="absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-20 h-20 rounded-full animate-spin"
+              style={{
+                border: "2px dashed #ff9ff3",
+                animationDuration: "2s",
+              }}
+            />
+          </>
+        )}
       </div>
 
       {/* Click ripples */}
