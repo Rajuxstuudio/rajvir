@@ -126,7 +126,10 @@ export const TestimonialsSection = () => {
 
           {/* Quote for mobile */}
           <div className="relative px-2">
-            <Quote className="w-8 h-8 text-accent/40 mb-4 mx-auto" />
+            <div className="relative w-8 h-8 mb-4 mx-auto">
+              <Quote className="w-full h-full text-accent/20 absolute top-0.5 left-0.5 blur-[1px]" />
+              <Quote className="w-full h-full text-accent relative drop-shadow-sm" style={{ filter: 'drop-shadow(1px 2px 2px hsl(var(--accent) / 0.3))' }} />
+            </div>
             
             <div className="relative min-h-[180px]">
               {testimonials.map((testimonial, index) => (
@@ -170,7 +173,10 @@ export const TestimonialsSection = () => {
           {/* Left side - Quote */}
           <div className="flex-1 max-w-xl">
             <div className="relative">
-              <Quote className="w-8 h-8 lg:w-10 lg:h-10 text-accent/40 mb-4 lg:mb-6" />
+              <div className="relative w-8 h-8 lg:w-10 lg:h-10 mb-4 lg:mb-6">
+                <Quote className="w-full h-full text-accent/20 absolute top-0.5 left-0.5 blur-[1px]" />
+                <Quote className="w-full h-full text-accent relative drop-shadow-sm" style={{ filter: 'drop-shadow(1px 2px 2px hsl(var(--accent) / 0.3))' }} />
+              </div>
               
               <div className="relative min-h-[140px] lg:min-h-[160px]">
                 {testimonials.map((testimonial, index) => (
