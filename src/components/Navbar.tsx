@@ -72,16 +72,16 @@ export const Navbar = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-md bg-secondary shadow-md flex items-center justify-center hover:bg-secondary/80 transition-colors"
+                  className="w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:bg-muted hover:border-primary/30 transition-all duration-300"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5 text-foreground" />
+                  <social.icon className="w-5 h-5 text-muted-foreground" />
                 </a>
               ))}
             </div>
             <button
               onClick={() => setIsProfileExpanded(!isProfileExpanded)}
-              className="relative w-11 h-11 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center hover:bg-secondary/80 transition-colors"
+              className="relative w-11 h-11 rounded-xl bg-card border border-border overflow-hidden flex items-center justify-center hover:border-primary/30 transition-all duration-300"
             >
               <img src={profileAvatar} alt="Profile" className="h-10 w-auto object-contain" />
             </button>
@@ -114,7 +114,7 @@ export const Navbar = () => {
               {/* Theme Toggle & Profile with Social Links - Always Expanded on Mobile */}
               <div className="flex items-center gap-2 mt-4">
                 <ThemeToggle />
-                <div className="relative w-12 h-12 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center">
+                <div className="relative w-12 h-12 rounded-xl bg-card border border-border overflow-hidden flex items-center justify-center">
                   <img src={profileAvatar} alt="Profile" className="h-11 w-auto object-contain" />
                 </div>
                 {socialLinks.map((social) => (
@@ -123,11 +123,11 @@ export const Navbar = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-md bg-secondary shadow-md flex items-center justify-center"
+                    className="w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:bg-muted transition-all duration-300"
                     aria-label={social.label}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <social.icon className="w-5 h-5 text-foreground" />
+                    <social.icon className="w-5 h-5 text-muted-foreground" />
                   </a>
                 ))}
               </div>
