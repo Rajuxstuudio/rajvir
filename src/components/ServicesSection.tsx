@@ -38,10 +38,10 @@ export const ServicesSection = () => {
         {/* Section header */}
         <div className="text-center mb-12 lg:mb-20">
           <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-4 lg:mb-6">
-            What I Do
+            Services
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4 lg:mb-6">
-            Services
+            What I Do
           </h2>
           <p className="text-base lg:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             From concept to launch, I deliver end-to-end design solutions that elevate your digital presence.
