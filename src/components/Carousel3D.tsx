@@ -229,40 +229,36 @@ export const Carousel3D = () => {
                       isHovered && "scale-105"
                     )}
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%)',
+                      background: 'hsl(var(--card))',
                       backdropFilter: 'blur(20px)',
                       WebkitBackdropFilter: 'blur(20px)',
                       border: isActive 
                         ? '1px solid hsl(var(--primary) / 0.5)' 
-                        : '1px solid rgba(255,255,255,0.15)',
+                        : '1px solid hsl(var(--border))',
                       boxShadow: isActive 
                         ? `
-                          0 8px 32px rgba(0,0,0,0.4),
-                          0 0 60px -10px hsl(var(--primary) / 0.4),
-                          inset 0 1px 0 rgba(255,255,255,0.2),
-                          inset 0 -1px 0 rgba(0,0,0,0.1)
+                          0 8px 32px hsl(var(--foreground) / 0.1),
+                          0 0 60px -10px hsl(var(--primary) / 0.3)
                         ` 
                         : `
-                          0 8px 32px rgba(0,0,0,0.3),
-                          inset 0 1px 0 rgba(255,255,255,0.15),
-                          inset 0 -1px 0 rgba(0,0,0,0.1)
+                          0 8px 32px hsl(var(--foreground) / 0.08)
                         `,
                       transformStyle: 'preserve-3d',
                     }}
                   >
                     {/* Glass reflection overlay */}
                     <div 
-                      className="absolute inset-0 pointer-events-none"
+                      className="absolute inset-0 pointer-events-none opacity-50 dark:opacity-100"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, transparent 100%)',
+                        background: 'linear-gradient(135deg, hsl(var(--foreground) / 0.03) 0%, transparent 50%, transparent 100%)',
                         borderRadius: 'inherit',
                       }}
                     />
 
                     {/* Project Color Background with Icon */}
                     {project.isViewAll ? (
-                      <div className="relative h-44 overflow-hidden flex items-center justify-center bg-white/5 border-b border-white/10">
-                        <ExternalLink className="w-12 h-12 text-white/50" />
+                      <div className="relative h-44 overflow-hidden flex items-center justify-center bg-muted border-b border-border">
+                        <ExternalLink className="w-12 h-12 text-muted-foreground" />
                       </div>
                     ) : (
                       <div 
@@ -304,10 +300,10 @@ export const Carousel3D = () => {
                         isHovered ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
                       )}
                     >
-                      <h3 className="text-lg font-display font-semibold text-white tracking-tight line-clamp-1">
+                      <h3 className="text-lg font-display font-semibold text-foreground tracking-tight line-clamp-1">
                         {project.title}
                       </h3>
-                      <p className="text-xs text-white/70 leading-relaxed line-clamp-3">
+                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
                         {project.description}
                       </p>
                     </div>
@@ -320,13 +316,13 @@ export const Carousel3D = () => {
                         isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                       )}
                       style={{
-                        background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, transparent 100%)',
+                        background: 'linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background) / 0.8) 70%, transparent 100%)',
                       }}
                     >
-                      <span className="text-white/70 text-xs font-medium tracking-wider uppercase">
+                      <span className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                         {project.isViewAll ? "Explore All" : "View Project"}
                       </span>
-                      <span className="text-white font-display font-semibold text-base">
+                      <span className="text-foreground font-display font-semibold text-base">
                         {project.title}
                       </span>
                     </div>
