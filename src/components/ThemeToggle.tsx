@@ -29,8 +29,8 @@ export const ThemeToggle = () => {
 
   if (!mounted) {
     return (
-      <button className="w-10 h-10 rounded-md bg-secondary shadow-md flex items-center justify-center">
-        <Sun className="w-5 h-5 text-foreground" />
+      <button className="w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center">
+        <Sun className="w-5 h-5 text-muted-foreground" />
       </button>
     );
   }
@@ -39,15 +39,15 @@ export const ThemeToggle = () => {
     <button
       onClick={toggleTheme}
       className={cn(
-        "w-10 h-10 rounded-md bg-secondary shadow-md flex items-center justify-center",
-        "hover:bg-secondary/80 transition-all duration-300"
+        "w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center",
+        "hover:bg-muted hover:border-primary/30 transition-all duration-300"
       )}
       aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
     >
       {resolvedTheme === "dark" ? (
-        <Moon className="w-5 h-5 text-foreground animate-scale-in" />
+        <Moon className="w-5 h-5 text-primary animate-scale-in" />
       ) : (
-        <Sun className="w-5 h-5 text-foreground animate-scale-in" />
+        <Sun className="w-5 h-5 text-primary animate-scale-in" />
       )}
     </button>
   );
