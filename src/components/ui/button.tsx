@@ -21,12 +21,10 @@ const buttonVariants = cva(
                hover:shadow-[0_4px_0_0_rgba(109,40,217,0.8),0_8px_15px_rgba(139,92,246,0.5)] 
                hover:translate-y-[2px] active:translate-y-[4px] active:shadow-[0_2px_0_0_rgba(109,40,217,0.8)]
                before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-t before:from-transparent before:to-white/20`,
-        glass: `relative backdrop-blur-xl bg-card/50 border-2 border-violet-400/30 text-foreground font-semibold
-                shadow-[0_4px_0_0_rgba(139,92,246,0.2),0_8px_20px_rgba(139,92,246,0.1)]
-                hover:shadow-[0_2px_0_0_rgba(139,92,246,0.2),0_6px_15px_rgba(139,92,246,0.2)]
+        glass: `relative backdrop-blur-xl bg-card/30 border-2 border-violet-400/30 text-white font-semibold
+                shadow-[0_4px_0_0_rgba(139,92,246,0.3),0_8px_20px_rgba(139,92,246,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]
+                hover:shadow-[0_2px_0_0_rgba(139,92,246,0.3),0_6px_15px_rgba(139,92,246,0.3)]
                 hover:translate-y-[2px] hover:border-violet-400/50 active:translate-y-[3px]
-                dark:text-white dark:bg-card/30 dark:shadow-[0_4px_0_0_rgba(139,92,246,0.3),0_8px_20px_rgba(139,92,246,0.2),inset_0_1px_0_rgba(255,255,255,0.1)]
-                dark:hover:shadow-[0_2px_0_0_rgba(139,92,246,0.3),0_6px_15px_rgba(139,92,246,0.3)]
                 before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-t before:from-transparent before:to-white/5`,
         spline: `relative bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 text-white font-bold
                  shadow-[0_6px_0_0_rgba(59,130,246,0.8),0_10px_25px_rgba(59,130,246,0.4)]
