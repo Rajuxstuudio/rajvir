@@ -32,17 +32,12 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "py-4" : "py-6"
-      )}
-    >
+    <nav className={cn("fixed top-0 left-0 right-0 z-50 transition-all duration-300", isScrolled ? "py-" : "py-4")}>
       <div className="container mx-auto px-6">
         <div
           className={cn(
             "flex items-center justify-between rounded-2xl px-6 py-4 transition-all duration-300",
-            isScrolled ? "glass" : "bg-transparent"
+            isScrolled ? "glass" : "bg-transparent",
           )}
         >
           {/* Logo */}
@@ -63,10 +58,10 @@ export const Navbar = () => {
 
           {/* Profile Avatar with Social Links */}
           <div className="hidden md:flex items-center gap-2">
-            <div 
+            <div
               className={cn(
                 "flex items-center gap-2 overflow-hidden transition-all duration-300",
-                isProfileExpanded ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
+                isProfileExpanded ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0",
               )}
             >
               {socialLinks.map((social) => (
@@ -86,19 +81,12 @@ export const Navbar = () => {
               onClick={() => setIsProfileExpanded(!isProfileExpanded)}
               className="relative w-11 h-11 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center hover:bg-secondary/80 transition-colors"
             >
-              <img 
-                src={profileAvatar} 
-                alt="Profile"
-                className="h-10 w-auto object-contain"
-              />
+              <img src={profileAvatar} alt="Profile" className="h-10 w-auto object-contain" />
             </button>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
+          <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? (
               <X className="w-6 h-6 text-foreground" />
             ) : (
@@ -124,11 +112,7 @@ export const Navbar = () => {
               {/* Profile with Social Links - Always Expanded on Mobile */}
               <div className="flex items-center gap-2 mt-4">
                 <div className="relative w-12 h-12 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center">
-                  <img 
-                    src={profileAvatar} 
-                    alt="Profile"
-                    className="h-11 w-auto object-contain"
-                  />
+                  <img src={profileAvatar} alt="Profile" className="h-11 w-auto object-contain" />
                 </div>
                 {socialLinks.map((social) => (
                   <a
