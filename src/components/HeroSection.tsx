@@ -4,7 +4,7 @@ import { ToolsStrip } from "./ToolsStrip";
 import { AnimatedCounter } from "./AnimatedCounter";
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen h-[100vh] flex items-center justify-center overflow-hidden pt-24 pb-16">
+    <section className="relative min-h-screen h-[100vh] flex items-center justify-center overflow-hidden py-16">
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-dark" />
 
