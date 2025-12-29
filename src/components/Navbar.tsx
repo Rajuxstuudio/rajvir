@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Instagram, Linkedin, MessageCircle, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
+import { ThemeToggle } from "./ThemeToggle";
 import profileAvatar from "@/assets/profile-avatar.png";
 
 const socialLinks = [
@@ -56,8 +57,9 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Profile Avatar with Social Links */}
+          {/* Theme Toggle & Profile Avatar with Social Links */}
           <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <div
               className={cn(
                 "flex items-center gap-2 overflow-hidden transition-all duration-300",
@@ -109,8 +111,9 @@ export const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              {/* Profile with Social Links - Always Expanded on Mobile */}
+              {/* Theme Toggle & Profile with Social Links - Always Expanded on Mobile */}
               <div className="flex items-center gap-2 mt-4">
+                <ThemeToggle />
                 <div className="relative w-12 h-12 rounded-md bg-secondary shadow-md overflow-hidden flex items-center justify-center">
                   <img src={profileAvatar} alt="Profile" className="h-11 w-auto object-contain" />
                 </div>
