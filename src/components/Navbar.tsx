@@ -3,6 +3,7 @@ import { Menu, X, Instagram, Linkedin, MessageCircle, Mail } from "lucide-react"
 import { cn } from "@/lib/utils";
 import { AnimatedLogo } from "./AnimatedLogo";
 import { ThemeToggle } from "./ThemeToggle";
+import { Link, useNavigate } from "react-router-dom";
 import profileAvatar from "@/assets/profile-avatar.png";
 
 const socialLinks = [
@@ -13,16 +14,33 @@ const socialLinks = [
 ];
 
 const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "Projects", href: "#projects" },
-  { label: "Services", href: "#services" },
-  { label: "Testimonials", href: "#testimonials" },
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/projects" },
+  { label: "Services", href: "/#services" },
+  { label: "Testimonials", href: "/#testimonials" },
 ];
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileExpanded, setIsProfileExpanded] = useState(false);
+
+  const handleNavClick = (href: string) => {
+    if (href.startsWith('/#')) {
+      // Navigate to home first, then scroll to section
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector(href.replace('/', ''));
+        element?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(href);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,13 +65,13 @@ export const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.label}
-                href={link.href}
+                onClick={() => handleNavClick(link.href)}
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
-              </a>
+              </button>
             ))}
           </div>
 
@@ -102,14 +120,16 @@ export const Navbar = () => {
           <div className="md:hidden mt-2 rounded-2xl glass p-6 animate-scale-in">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.label}
-                  href={link.href}
-                  className="text-lg font-medium text-foreground py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    handleNavClick(link.href);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-lg font-medium text-foreground py-2 text-left"
                 >
                   {link.label}
-                </a>
+                </button>
               ))}
               {/* Theme Toggle & Profile with Social Links - Always Expanded on Mobile */}
               <div className="flex items-center gap-2 mt-4">
