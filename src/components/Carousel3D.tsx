@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 interface Project {
   id: number;
@@ -78,12 +79,13 @@ const projects: Project[] = [
     category: "Projects",
     description: "Explore my complete collection of design and development work across various industries and platforms.",
     color: googleColors[6],
-    link: "#projects",
+    link: "/projects",
     isViewAll: true,
   },
 ];
 
 export const Carousel3D = () => {
+  const navigate = useNavigate();
   const [rotation, setRotation] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -211,7 +213,11 @@ export const Carousel3D = () => {
                   }}
                   onClick={() => {
                     if (isActive) {
-                      window.open(project.link, "_blank");
+                      if (project.isViewAll) {
+                        navigate(project.link);
+                      } else {
+                        window.open(project.link, "_blank");
+                      }
                     } else {
                       const targetRotation = -index * anglePerItem;
                       setRotation(targetRotation);
