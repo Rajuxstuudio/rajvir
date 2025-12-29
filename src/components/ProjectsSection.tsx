@@ -16,7 +16,7 @@ export const ProjectsSection = () => {
         {/* Section header */}
         <div className="text-center mb-12 lg:mb-16">
           <span className="inline-block px-4 py-2 rounded-full glass text-sm font-medium text-primary mb-4 lg:mb-6">
-            Portfolio
+            Projects
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-4 lg:mb-6">
             My Work

@@ -75,7 +75,7 @@ const projects: Project[] = [
   {
     id: 7,
     title: "View All Projects",
-    category: "Portfolio",
+    category: "Projects",
     description: "Explore my complete collection of design and development work across various industries and platforms.",
     color: googleColors[6],
     link: "#projects",
